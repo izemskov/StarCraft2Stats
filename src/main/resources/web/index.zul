@@ -1,0 +1,43 @@
+<zk xmlns:n="native">
+    <?page title="SC2 Statistics"?>
+
+    <div id="mainView" height="100%" width="100%" apply="ru.develgame.sc2stats.composer.IndexComposer">
+        <label value="SC2 Statistics" style="font-size:25pt; margin-top: 10px;"/>
+
+        <space orient="horizontal" bar="true" spacing="20px" />
+
+        <label value="Daily statistics" style="font-size:18pt"/>
+
+        <listbox id="dailyList"
+                 style="margin-top: 10px"
+                 mold="paging"
+                 pageSize="30"
+                 itemRenderer="ru.develgame.sc2stats.render.SC2DailyListItemRender">
+            <listhead>
+                <listheader>Date</listheader>
+                <listheader>Type</listheader>
+                <listheader>Wins</listheader>
+                <listheader>Losses</listheader>
+            </listhead>
+        </listbox>
+
+        <space orient="horizontal" bar="true" spacing="20px" />
+
+        <label value="Full match history" style="font-size:18pt"/>
+
+        <listbox id="matchesList"
+                 style="margin-top: 10px"
+                 mold="paging"
+                 pageSize="30"
+                 itemRenderer="ru.develgame.sc2stats.render.SC2MatchesListItemRender">
+            <listhead>
+                <listheader>Map</listheader>
+                <listheader>Type</listheader>
+                <listheader>Decision</listheader>
+                <listheader>Date</listheader>
+            </listhead>
+        </listbox>
+
+        <n:br/>
+    </div>
+</zk>
