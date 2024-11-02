@@ -34,10 +34,10 @@ public class IndexComposer extends SelectorComposer<Div> {
     public void doAfterCompose(Div comp) throws Exception {
         super.doAfterCompose(comp);
 
-        matchesDataModel = new ListModelList<>(matchServiceImpl.fetchAllMatches());
+        matchesDataModel = new ListModelList<>(matchServiceImpl.fetchAllMatchesSortedByDateDesc());
         matchesList.setModel(matchesDataModel);
 
-        dailyDataModel = new ListModelList<>(dailyServiceImpl.fetchAll());
+        dailyDataModel = new ListModelList<>(dailyServiceImpl.fetchAllSortedByDateDesc());
         dailyList.setModel(dailyDataModel);
     }
 }

@@ -21,4 +21,5 @@ public class SC2Daily {
     private int wins;
     private int losses;
     private String date;
+    private long timestamp;
 }

@@ -21,5 +21,5 @@ public class SC2Match {
     private String type;
     private String decision;
     private String speed;
-    private Long date;
+    private long date;
 }

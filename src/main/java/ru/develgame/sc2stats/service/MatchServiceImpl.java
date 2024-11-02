@@ -13,7 +13,7 @@ public class MatchServiceImpl implements MatchService {
     private final SC2MatchRepository sc2MatchRepository;
 
     @Override
-    public List<SC2Match> fetchAllMatches() {
-        return sc2MatchRepository.findAll();
+    public List<SC2Match> fetchAllMatchesSortedByDateDesc() {
+        return sc2MatchRepository.findAllByOrderByDateDesc();
     }
 }

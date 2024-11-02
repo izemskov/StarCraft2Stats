@@ -1,4 +1,4 @@
-package ru.develgame.sc2stats.service;
+package ru.develgame.sc2stats.service.battlenet;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.codec.binary.Base64;

@@ -24,6 +24,7 @@ public class DailyServiceImpl implements DailyService {
             sc2Daily = new SC2Daily();
             sc2Daily.setDate(date);
             sc2Daily.setType(sc2Match.getType());
+            sc2Daily.setTimestamp(sc2Match.getDate());
         }
 
         if (sc2Match.getDecision().equals("Win")) {
@@ -36,7 +37,7 @@ public class DailyServiceImpl implements DailyService {
     }
 
     @Override
-    public List<SC2Daily> fetchAll() {
-        return sc2DailyRepository.findAll();
+    public List<SC2Daily> fetchAllSortedByDateDesc() {
+        return sc2DailyRepository.findAllByOrderByTimestampDesc();
     }
 }

@@ -11,7 +11,7 @@
         <listbox id="dailyList"
                  style="margin-top: 10px"
                  mold="paging"
-                 pageSize="30"
+                 pageSize="10"
                  itemRenderer="ru.develgame.sc2stats.render.SC2DailyListItemRender">
             <listhead>
                 <listheader>Date</listheader>
@@ -28,7 +28,7 @@
         <listbox id="matchesList"
                  style="margin-top: 10px"
                  mold="paging"
-                 pageSize="30"
+                 pageSize="25"
                  itemRenderer="ru.develgame.sc2stats.render.SC2MatchesListItemRender">
             <listhead>
                 <listheader>Map</listheader>

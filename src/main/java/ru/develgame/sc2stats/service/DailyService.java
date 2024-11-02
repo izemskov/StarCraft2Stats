@@ -8,5 +8,5 @@ import java.util.List;
 public interface DailyService {
     void updateDaily(SC2Match sc2Match);
 
-    List<SC2Daily> fetchAll();
+    List<SC2Daily> fetchAllSortedByDateDesc();
 }

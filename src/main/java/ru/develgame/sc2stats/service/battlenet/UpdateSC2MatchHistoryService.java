@@ -1,4 +1,4 @@
-package ru.develgame.sc2stats.service;
+package ru.develgame.sc2stats.service.battlenet;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +12,7 @@ import ru.develgame.sc2stats.dto.BattleNetApiSC2MatchResponseDto;
 import ru.develgame.sc2stats.dto.BattleNetApiSC2MatchesListResponseDto;
 import ru.develgame.sc2stats.entity.SC2Match;
 import ru.develgame.sc2stats.repository.SC2MatchRepository;
+import ru.develgame.sc2stats.service.DailyService;
 
 import java.util.Objects;
 
