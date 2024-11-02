@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class SC2MatchesListItemRender implements ListitemRenderer<SC2Match> {
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mmß");
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
 
     @Override
     public void render(Listitem listitem, SC2Match sc2Match, int i) throws Exception {
