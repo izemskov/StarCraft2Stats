@@ -2,7 +2,9 @@
     <?page title="SC2 Statistics"?>
 
     <div id="mainView" height="100%" width="100%" apply="ru.develgame.sc2stats.composer.IndexComposer">
-        <label value="SC2 Statistics" style="font-size:25pt; margin-top: 10px;"/>
+        <label value="StarCraft 2 Statistics" style="font-size:25pt; margin-top: 10px;"/>
+        <n:br/>
+        <label id="lastUpdateLabel"/>
 
         <space orient="horizontal" bar="true" spacing="20px" />
 
@@ -23,7 +25,7 @@
 
         <space orient="horizontal" bar="true" spacing="20px" />
 
-        <label value="Full match history" style="font-size:18pt"/>
+        <label value="Full matches history" style="font-size:18pt"/>
 
         <listbox id="matchesList"
                  style="margin-top: 10px"

@@ -24,6 +24,7 @@ public class UpdateSC2MatchHistoryService {
     private final RestTemplate restTemplate;
     private final SC2MatchRepository sc2MatchRepository;
     private final DailyService dailyService;
+    private final BattleNetUpdateDateService battleNetUpdateDateService;
 
     @Scheduled(fixedRateString = "3600000", initialDelayString = "5000")
     public void updateSC2MatchHistory() {
@@ -62,5 +63,7 @@ public class UpdateSC2MatchHistoryService {
                     .date(match.date())
                     .build()));
         }
+
+        battleNetUpdateDateService.updateLastUpdateDate();
     }
 }
