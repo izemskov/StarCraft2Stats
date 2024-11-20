@@ -3,7 +3,6 @@ package ru.develgame.sc2stats.service.battlenet;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -20,16 +19,13 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Slf4j
 public class UpdateSC2MatchHistoryService {
-    private final BattleNetApiAuthService battleNetApiAuthService;
     private final RestTemplate restTemplate;
     private final SC2MatchRepository sc2MatchRepository;
     private final DailyService dailyService;
-    private final BattleNetUpdateDateService battleNetUpdateDateService;
 
-    @Scheduled(fixedRateString = "3600000", initialDelayString = "5000")
-    public void updateSC2MatchHistory() {
+    public void updateSC2MatchHistory(String accessToken) {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "Bearer " + battleNetApiAuthService.getAccessToken());
+        headers.add("Authorization", "Bearer " + accessToken);
 
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
@@ -41,7 +37,7 @@ public class UpdateSC2MatchHistoryService {
         if (response.getStatusCode() != HttpStatus.OK
                 || response.getBody() == null
                 || response.getBody().matches() == null) {
-            log.warn(String.format("Cannot get data from Battle.net. Code: %d", response.getStatusCode().value()));
+            log.warn(String.format("Cannot get data from Battle.net (matches). Code: %d", response.getStatusCode().value()));
             return;
         }
 
@@ -63,7 +59,5 @@ public class UpdateSC2MatchHistoryService {
                     .date(match.date())
                     .build()));
         }
-
-        battleNetUpdateDateService.updateLastUpdateDate();
     }
 }
