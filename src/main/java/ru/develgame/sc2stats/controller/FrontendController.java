@@ -11,4 +11,9 @@ public class FrontendController {
     public String mainPage() {
         return "index";
     }
+
+    @GetMapping("player")
+    public String playerInfo() {
+        return "player";
+    }
 }

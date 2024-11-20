@@ -1,5 +1,5 @@
 <zk xmlns:n="native">
-    <?page title="SC2 Statistics"?>
+    <?page title="StarCraft 2 Statistics"?>
 
     <div id="mainView" height="100%" width="100%" apply="ru.develgame.sc2stats.composer.IndexComposer">
         <label value="StarCraft 2 Statistics" style="font-size:25pt; margin-top: 10px;"/>

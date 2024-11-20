@@ -1,0 +1,26 @@
+<zk xmlns:n="native">
+    <?page title="StarCraft 2 Player info"?>
+
+    <div id="mainView" height="100%" width="100%" apply="ru.develgame.sc2stats.composer.PlayerInfoComposer">
+        <label value="StarCraft 2 Player info" style="font-size:25pt; margin-top: 10px;"/>
+        <n:br/>
+        <label id="lastUpdateLabel"/>
+
+        <space orient="horizontal" bar="true" spacing="20px" />
+
+        <image id="mmrCurrent" width="300" height="300"/>
+
+        <image id="mmrBest" width="300" height="300"/>
+
+        <space orient="horizontal" bar="true" spacing="20px" />
+
+        <listbox id="playerInfoListBox"
+                 style="margin-top: 10px"
+                 itemRenderer="ru.develgame.sc2stats.render.KeyValueItemRender">
+            <listhead>
+                <listheader>Key</listheader>
+                <listheader>Value</listheader>
+            </listhead>
+        </listbox>
+    </div>
+</zk>
