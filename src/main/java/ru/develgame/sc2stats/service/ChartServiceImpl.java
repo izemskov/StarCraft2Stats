@@ -33,7 +33,7 @@ public class ChartServiceImpl implements ChartService {
 
     private JFreeChart createMMRDialChart(int mmr, String title) {
         DefaultValueDataset dataset = new DefaultValueDataset(mmr);
-        JFreeChart jfreechart = createStandardDialChart("MMR", title, dataset, 0D, 7000D, 1000D, 4);
+        JFreeChart jfreechart = createStandardDialChart(title, "MMR", dataset, 0D, 7000D, 1000D, 4);
         DialPlot dialplot = (DialPlot)jfreechart.getPlot();
 
         StandardDialRange bronzeLeague = new StandardDialRange(0D, 1680D, new Color(205, 127, 50));
