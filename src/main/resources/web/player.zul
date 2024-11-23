@@ -1,6 +1,8 @@
 <zk xmlns:n="native">
     <?page title="StarCraft 2 Player info"?>
 
+    <?link rel="stylesheet" type="text/css" href="/css/dark.css"?>
+
     <div id="mainView" height="100%" width="100%" apply="ru.develgame.sc2stats.composer.PlayerInfoComposer">
         <label value="StarCraft 2 Player info" style="font-size:25pt; margin-top: 10px;"/>
         <n:br/>

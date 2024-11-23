@@ -1,8 +1,10 @@
 <zk xmlns:n="native">
     <?page title="StarCraft 2 Statistics"?>
 
+    <?link rel="stylesheet" type="text/css" href="/css/dark.css"?>
+
     <div id="mainView" height="100%" width="100%" apply="ru.develgame.sc2stats.composer.IndexComposer">
-        <label value="StarCraft 2 Statistics" style="font-size:25pt; margin-top: 10px;"/>
+        <label value="StarCraft 2 Statistics" style="font-size:25pt; margin-top: 10px;" sclass="label-color"/>
         <n:br/>
         <label id="lastUpdateLabel"/>
 
