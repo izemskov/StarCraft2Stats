@@ -6,12 +6,6 @@ body {
     color: rgba(255, 255, 255, 0.9);
 }
 
-.z-listheader {
-    background: #8AC73F;
-    border-left: 1px solid #6EA22F;
-    border-bottom: 1px solid #6EA22F;
-}
-
 .label-color {
     color: rgba(255, 255, 255, 0.9);
 }
