@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 @Slf4j
 @Service
@@ -105,6 +106,7 @@ public class ChartServiceImpl implements ChartService {
         standarddialscale.setTickRadius(0.88D);
         standarddialscale.setTickLabelOffset(0.14999999999999999D);
         standarddialscale.setTickLabelFont(new Font("Dialog", 0, 14));
+        standarddialscale.setTickLabelFormatter(new DecimalFormat("####"));
 
         dialplot.addScale(0, standarddialscale);
         dialplot.addPointer(new org.jfree.chart.plot.dial.DialPointer.Pin());

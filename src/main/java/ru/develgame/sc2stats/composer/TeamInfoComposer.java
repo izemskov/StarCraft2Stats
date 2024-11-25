@@ -4,29 +4,26 @@ import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zul.*;
+import org.zkoss.zul.Div;
+import org.zkoss.zul.Image;
+import org.zkoss.zul.Label;
 import ru.develgame.sc2stats.entity.SC2Player;
 import ru.develgame.sc2stats.service.ChartServiceImpl;
 import ru.develgame.sc2stats.service.PlayerServiceImpl;
 import ru.develgame.sc2stats.service.battlenet.BattleNetUpdateDateServiceImpl;
 
 import java.text.SimpleDateFormat;
-import java.util.AbstractMap;
-import java.util.Map;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
-public class PlayerInfoComposer extends SelectorComposer<Div> {
+public class TeamInfoComposer extends SelectorComposer<Div> {
     @Wire
-    private Image mmrCurrent;
+    private Image mmrCurrent2x2;
 
     @Wire
-    private Image mmrBest;
+    private Image mmrBest2x2;
 
     @Wire
     private Label lastUpdateLabel;
-
-    @Wire
-    private Listbox playerInfoListBox;
 
     @WireVariable
     private ChartServiceImpl chartServiceImpl;
@@ -50,21 +47,8 @@ public class PlayerInfoComposer extends SelectorComposer<Div> {
 
         SC2Player player = playerServiceImpl.getCurrentPlayer();
         if (player != null) {
-            mmrCurrent.setContent(chartServiceImpl.createMMRChart(player.getCurrentMMR(), "Current"));
-            mmrBest.setContent(chartServiceImpl.createMMRChart(player.getBestMMR(), "Best"));
-
-            ListModelList<Map.Entry<String, String>> playerListBoxModel = new ListModelList<>();
-            playerListBoxModel.add(new AbstractMap.SimpleEntry<>("Total games",
-                    Integer.toString(player.getTotalCareerGames())));
-            playerListBoxModel.add(new AbstractMap.SimpleEntry<>("Best 1v1 league",
-                    player.getBest1v1FinishLeagueName()));
-            playerListBoxModel.add(new AbstractMap.SimpleEntry<>("Best 1v1 league times",
-                    Integer.toString(player.getBest1v1FinishTimesAchieved())));
-            playerListBoxModel.add(new AbstractMap.SimpleEntry<>("Best team league",
-                    player.getBestTeamFinishLeagueName()));
-            playerListBoxModel.add(new AbstractMap.SimpleEntry<>("Best team league times",
-                    Integer.toString(player.getBestTeamFinishTimesAchieved())));
-            playerInfoListBox.setModel(playerListBoxModel);
+            mmrCurrent2x2.setContent(chartServiceImpl.createMMRChart(player.getCurrentMMR2x2(), "Current 2x2"));
+            mmrBest2x2.setContent(chartServiceImpl.createMMRChart(player.getBestMMR2x2(), "Best 2x2"));
         }
     }
 }

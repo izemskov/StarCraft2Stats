@@ -1,10 +1,8 @@
 package ru.develgame.sc2stats.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Getter
@@ -27,7 +25,15 @@ public class SC2Player {
 
     private int bestTeamFinishTimesAchieved;
 
+    @ColumnDefault("0")
     private int currentMMR;
 
+    @ColumnDefault("0")
     private int bestMMR;
+
+    @ColumnDefault("0")
+    private int currentMMR2x2;
+
+    @ColumnDefault("0")
+    private int bestMMR2x2;
 }

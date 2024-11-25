@@ -53,12 +53,3 @@ body {
 .z-listitem.z-listitem-selected>.z-listcell>.z-listcell-content {
     color: rgba(0, 0, 0, 0.9);
 }
-
-.z-listitem.z-listitem-selected>.z-listcell {
-    background: #A1D265;
-}
-
-.z-listitem.z-listitem-selected>.z-listcell,
-.z-listitem.z-listitem-selected.z-listitem-focus > .z-listcell {
-    background-color: #A1D265;
-}

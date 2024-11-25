@@ -16,4 +16,9 @@ public class FrontendController {
     public String playerInfo() {
         return "player";
     }
+
+    @GetMapping("team")
+    public String teamInfo() {
+        return "team";
+    }
 }

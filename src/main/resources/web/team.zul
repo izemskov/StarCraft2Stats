@@ -1,0 +1,17 @@
+<zk xmlns:n="native">
+    <?page title="StarCraft 2 Team info"?>
+
+    <?link rel="stylesheet" type="text/css" href="/css/dark.css"?>
+
+    <div id="mainView" height="100%" width="100%" apply="ru.develgame.sc2stats.composer.TeamInfoComposer">
+        <label value="StarCraft 2 Team info" style="font-size:25pt; margin-top: 10px;"/>
+        <n:br/>
+        <label id="lastUpdateLabel"/>
+
+        <space orient="horizontal" bar="true" spacing="20px" />
+
+        <image id="mmrCurrent2x2" width="300" height="300"/>
+
+        <image id="mmrBest2x2" width="300" height="300"/>
+    </div>
+</zk>

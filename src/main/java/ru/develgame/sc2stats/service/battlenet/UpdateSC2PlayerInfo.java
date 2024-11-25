@@ -98,12 +98,26 @@ public class UpdateSC2PlayerInfo {
                                          SC2Player sc2Player) {
         for (BattleNetApiSC2PlayerLadderShowcaseResponseDto playerLadder : playerLadders) {
             if (playerLadder.localizedGameMode().contains("1v1")) {
-                processPlayerLadder(request, playerLadder, sc2Player);
+                int mmr = processPlayerLadder(request, playerLadder, sc2Player);
+                if (mmr != 0) {
+                    sc2Player.setCurrentMMR(mmr);
+                    if (mmr > sc2Player.getBestMMR()) {
+                        sc2Player.setBestMMR(mmr);
+                    }
+                }
+            } else if (playerLadder.localizedGameMode().contains("2v2")) {
+                int mmr = processPlayerLadder(request, playerLadder, sc2Player);
+                if (mmr != 0) {
+                    sc2Player.setCurrentMMR2x2(mmr);
+                    if (mmr > sc2Player.getBestMMR2x2()) {
+                        sc2Player.setBestMMR2x2(mmr);
+                    }
+                }
             }
         }
     }
 
-    private void processPlayerLadder(HttpEntity<MultiValueMap<String, String>> request,
+    private int processPlayerLadder(HttpEntity<MultiValueMap<String, String>> request,
                                      BattleNetApiSC2PlayerLadderShowcaseResponseDto playerLadder,
                                      SC2Player sc2Player) {
         ResponseEntity<BattleNetApiSC2LadderResponseDto> response = restTemplate.exchange(
@@ -114,18 +128,15 @@ public class UpdateSC2PlayerInfo {
                 || response.getBody() == null
                 || response.getBody().ladderTeams() == null) {
             log.warn(String.format("Cannot get data from Battle.net (ladder). Code: %d", response.getStatusCode().value()));
-            return;
+            return 0;
         }
 
         for (BattleNetApiSC2LadderTeamResponseDto ladderTeam : response.getBody().ladderTeams()) {
             if (ladderTeam.teamMembers().stream().filter(t -> t.id().equals("823560")).findFirst().isPresent()) {
-                if (ladderTeam.mmr() != 0) {
-                    sc2Player.setCurrentMMR(ladderTeam.mmr());
-                    if (ladderTeam.mmr() > sc2Player.getBestMMR()) {
-                        sc2Player.setBestMMR(ladderTeam.mmr());
-                    }
-                }
+                return ladderTeam.mmr();
             }
         }
+
+        return 0;
     }
 }
