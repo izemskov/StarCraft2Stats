@@ -1,12 +1,10 @@
-<zk xmlns:n="native">
+<zk>
     <?page title="StarCraft 2 Team info"?>
 
     <?link rel="stylesheet" type="text/css" href="/css/dark.css"?>
 
     <div id="mainView" height="100%" width="100%" apply="ru.develgame.sc2stats.composer.TeamInfoComposer">
-        <label value="StarCraft 2 Team info" style="font-size:25pt; margin-top: 10px;"/>
-        <n:br/>
-        <label id="lastUpdateLabel"/>
+        <include src="~./widgets/mainmenu.zul"/>
 
         <space orient="horizontal" bar="true" spacing="20px" />
 

@@ -1,0 +1,17 @@
+<zk>
+    <div apply="ru.develgame.sc2stats.composer.MainMenuComposer">
+        <hbox style="margin-bottom: 5px;">
+            <button iconSclass="z-icon-bars" popup="mp"/>
+            <label id="titleLabel"
+                   value="StarCraft 2 Statistics"
+                   sclass="label-color sc2stats-title-label"/>
+
+            <menupopup id="mp">
+                <menuitem label="Statistics" id="menuStatistics"/>
+                <menuitem label="Player" id="menuPlayer"/>
+                <menuitem label="Team" id="menuTeam"/>
+            </menupopup>
+        </hbox>
+        <label id="lastUpdateLabel"/>
+    </div>
+</zk>

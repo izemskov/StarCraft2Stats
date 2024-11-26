@@ -4,13 +4,14 @@ import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
-import org.zkoss.zul.*;
+import org.zkoss.zul.Div;
+import org.zkoss.zul.Image;
+import org.zkoss.zul.ListModelList;
+import org.zkoss.zul.Listbox;
 import ru.develgame.sc2stats.entity.SC2Player;
 import ru.develgame.sc2stats.service.ChartServiceImpl;
 import ru.develgame.sc2stats.service.PlayerServiceImpl;
-import ru.develgame.sc2stats.service.battlenet.BattleNetUpdateDateServiceImpl;
 
-import java.text.SimpleDateFormat;
 import java.util.AbstractMap;
 import java.util.Map;
 
@@ -23,9 +24,6 @@ public class PlayerInfoComposer extends SelectorComposer<Div> {
     private Image mmrBest;
 
     @Wire
-    private Label lastUpdateLabel;
-
-    @Wire
     private Listbox playerInfoListBox;
 
     @WireVariable
@@ -34,19 +32,10 @@ public class PlayerInfoComposer extends SelectorComposer<Div> {
     @WireVariable
     private PlayerServiceImpl playerServiceImpl;
 
-    @WireVariable
-    private BattleNetUpdateDateServiceImpl battleNetUpdateDateServiceImpl;
-
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
 
     @Override
     public void doAfterCompose(Div comp) throws Exception {
         super.doAfterCompose(comp);
-
-        lastUpdateLabel.setValue(String.format("Last update: %s",
-                battleNetUpdateDateServiceImpl.getLastUpdateDate() == null
-                        ? "unknown"
-                        : dateFormat.format(battleNetUpdateDateServiceImpl.getLastUpdateDate())));
 
         SC2Player player = playerServiceImpl.getCurrentPlayer();
         if (player != null) {

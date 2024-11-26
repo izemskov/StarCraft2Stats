@@ -4,16 +4,7 @@
     <?link rel="stylesheet" type="text/css" href="/css/dark.css"?>
 
     <div id="mainView" height="100%" width="100%" apply="ru.develgame.sc2stats.composer.IndexComposer">
-        <hbox style="margin-bottom: 5px;">
-            <button iconSclass="z-icon-bars" popup="mp, type=toggle"/>
-            <menupopup id="mp">
-                <menuitem label="Statistics"/>
-                <menuitem label="Player"/>
-                <menuitem label="Team"/>
-            </menupopup>
-            <label value="StarCraft 2 Statistics" style="margin-left: 5px; font-size:24pt; margin-top: 10px;" sclass="label-color"/>
-        </hbox>
-        <label id="lastUpdateLabel"/>
+        <include src="~./widgets/mainmenu.zul"/>
 
         <space orient="horizontal" bar="true" spacing="20px" />
 
