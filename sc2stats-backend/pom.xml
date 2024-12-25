@@ -14,9 +14,9 @@
     <artifactId>sc2stats-backend</artifactId>
     <packaging>jar</packaging>
 
-<!--    <properties>
-
-    </properties>-->
+    <properties>
+        <org.springdoc.version>2.0.3</org.springdoc.version>
+    </properties>
 
     <dependencies>
         <!-- Spring -->
@@ -59,6 +59,19 @@
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
             <version>${org.springdoc.version}</version>
+        </dependency>
+
+        <!-- Tests -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
