@@ -20,6 +20,8 @@
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <org.springdoc.version>2.0.3</org.springdoc.version>
     </properties>
 
     <repositories>

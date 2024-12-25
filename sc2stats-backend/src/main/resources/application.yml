@@ -1,0 +1,28 @@
+sc:
+  rest-template:
+    connect-timeout: 20000
+    response-timeout: 20000
+
+server:
+  port: 8082
+
+spring:
+  h2:
+    console:
+      enabled: false
+      path: /h2
+
+  datasource:
+    url: jdbc:h2:file:~/sc2stats_db
+    username: sa
+    password: password
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+springdoc:
+  swagger-ui:
+    enabled: true
+  api-docs:
+    enabled: true
