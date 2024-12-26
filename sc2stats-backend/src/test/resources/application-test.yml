@@ -1,0 +1,14 @@
+spring:
+  h2:
+    console:
+      enabled: false
+      path: /h2
+
+  datasource:
+    url: jdbc:h2:mem:test
+    username: sa
+    password: password
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
