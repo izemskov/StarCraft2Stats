@@ -1,9 +1,6 @@
 package ru.develgame.sc2stats.backend.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -13,7 +10,8 @@ import org.hibernate.annotations.ColumnDefault;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class SC2Player {
+@Table(name = "SC2PLAYER")
+public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

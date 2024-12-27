@@ -1,9 +1,6 @@
 package ru.develgame.sc2stats.backend.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -12,7 +9,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class SC2Match {
+@Table(name = "SC2MATCH")
+public class Match {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

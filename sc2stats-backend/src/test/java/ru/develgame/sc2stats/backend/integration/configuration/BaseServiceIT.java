@@ -9,8 +9,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-@Import(TestDBConfiguration.class)
+@Import({TestDBConfiguration.class,
+        TestServiceConfiguration.class})
 @TestPropertySource(locations = "/application-test.yml")
 @ActiveProfiles("test")
-public class BaseRepositoryIT {
+public class BaseServiceIT {
 }

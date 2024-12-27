@@ -5,20 +5,20 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import ru.develgame.sc2stats.backend.dto.SC2MatchResponseDto;
-import ru.develgame.sc2stats.backend.entity.SC2Match;
-import ru.develgame.sc2stats.backend.mapper.SC2MatchMapper;
+import ru.develgame.sc2stats.backend.dto.MatchResponseDto;
+import ru.develgame.sc2stats.backend.entity.Match;
+import ru.develgame.sc2stats.backend.mapper.MatchMapper;
 
 @ExtendWith(SpringExtension.class)
-class SC2MatchMapperTest {
+class MatchMapperTest {
 
     @InjectMocks
-    private SC2MatchMapper sc2MatchMapper;
+    private MatchMapper matchMapper;
 
     @Test
     void should_mapToDto() {
-        SC2Match expected = new SC2Match(100L, "map", "type", "decision", "speed", 1000000L);
-        SC2MatchResponseDto actual = sc2MatchMapper.toDto(expected);
+        Match expected = new Match(100L, "map", "type", "decision", "speed", 1000000L);
+        MatchResponseDto actual = matchMapper.toDto(expected);
 
         Assertions.assertEquals(expected.getMap(), actual.map());
         Assertions.assertEquals(expected.getType(), actual.type());
