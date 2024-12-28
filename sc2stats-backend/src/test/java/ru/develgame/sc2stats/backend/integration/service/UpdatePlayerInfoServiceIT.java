@@ -83,6 +83,134 @@ class UpdatePlayerInfoServiceIT extends BaseServiceIT {
                                 """)
                         .withStatusCode(200));
 
+        mockServer.when(request()
+                        .withMethod("GET")
+                        .withPath("/sc2/profile/2/2/playerId/ladder/summary")
+                        .withQueryStringParameter("locale", "en_US")
+                        .withHeader("Authorization", "Bearer AccessTokenValue")
+                )
+                .respond(response()
+                        .withContentType(MediaType.APPLICATION_JSON)
+                        .withBody("""
+                                {
+                                     "allLadderMemberships": [
+                                          {
+                                              "ladderId": "262035",
+                                              "localizedGameMode": "1v1 Platinum",
+                                              "rank": 32
+                                          },
+                                          {
+                                              "ladderId": "262241",
+                                              "localizedGameMode": "2v2 Diamond",
+                                              "rank": 42
+                                          }
+                                     ]
+                                }
+                                """)
+                        .withStatusCode(200));
+
+        mockServer.when(request()
+                        .withMethod("GET")
+                        .withPath("/sc2/profile/2/2/playerId/ladder/262035")
+                        .withQueryStringParameter("locale", "en_US")
+                        .withHeader("Authorization", "Bearer AccessTokenValue")
+                )
+                .respond(response()
+                        .withContentType(MediaType.APPLICATION_JSON)
+                        .withBody("""
+                                {
+                                     "ladderTeams": [
+                                         {
+                                             "teamMembers": [
+                                                 {
+                                                     "id": "playerId",
+                                                     "realm": 2,
+                                                     "region": 2,
+                                                     "displayName": "playerName",
+                                                     "clanTag": "clanTag",
+                                                     "favoriteRace": "zerg"
+                                                 }
+                                             ],
+                                             "previousRank": 12,
+                                             "points": 548,
+                                             "wins": 25,
+                                             "losses": 19,
+                                             "mmr": 3092,
+                                             "joinTimestamp": 1732026185
+                                         },
+                                         {
+                                             "teamMembers": [
+                                                 {
+                                                     "id": "playerId2",
+                                                     "realm": 1,
+                                                     "region": 2,
+                                                     "displayName": "playerName2",
+                                                     "favoriteRace": "zerg"
+                                                 }
+                                             ],
+                                             "previousRank": 40,
+                                             "points": 547,
+                                             "wins": 27,
+                                             "losses": 16,
+                                             "mmr": 3045,
+                                             "joinTimestamp": 1732047554
+                                         }
+                                     ]
+                                }
+                                """)
+                        .withStatusCode(200));
+
+        mockServer.when(request()
+                        .withMethod("GET")
+                        .withPath("/sc2/profile/2/2/playerId/ladder/262241")
+                        .withQueryStringParameter("locale", "en_US")
+                        .withHeader("Authorization", "Bearer AccessTokenValue")
+                )
+                .respond(response()
+                        .withContentType(MediaType.APPLICATION_JSON)
+                        .withBody("""
+                                {
+                                     "ladderTeams": [
+                                         {
+                                             "teamMembers": [
+                                                 {
+                                                     "id": "playerId",
+                                                     "realm": 2,
+                                                     "region": 2,
+                                                     "displayName": "playerName",
+                                                     "clanTag": "clanTag",
+                                                     "favoriteRace": "zerg"
+                                                 }
+                                             ],
+                                             "previousRank": 12,
+                                             "points": 548,
+                                             "wins": 25,
+                                             "losses": 19,
+                                             "mmr": 3084,
+                                             "joinTimestamp": 1732026185
+                                         },
+                                         {
+                                             "teamMembers": [
+                                                 {
+                                                     "id": "playerId2",
+                                                     "realm": 1,
+                                                     "region": 2,
+                                                     "displayName": "playerName2",
+                                                     "favoriteRace": "zerg"
+                                                 }
+                                             ],
+                                             "previousRank": 40,
+                                             "points": 547,
+                                             "wins": 27,
+                                             "losses": 16,
+                                             "mmr": 3045,
+                                             "joinTimestamp": 1732047554
+                                         }
+                                     ]
+                                }
+                                """)
+                        .withStatusCode(200));
+
         updatePlayerInfoService.updatePlayerInfo("AccessTokenValue");
 
         Assertions.assertEquals(1, playerRepository.findAll().size());
@@ -92,5 +220,7 @@ class UpdatePlayerInfoServiceIT extends BaseServiceIT {
         Assertions.assertEquals(2, actual.getBest1v1FinishTimesAchieved());
         Assertions.assertEquals("MASTER", actual.getBestTeamFinishLeagueName());
         Assertions.assertEquals(1, actual.getBestTeamFinishTimesAchieved());
+        Assertions.assertEquals(3092, actual.getCurrentMMR());
+        Assertions.assertEquals(3084, actual.getCurrentMMR2x2());
     }
 }

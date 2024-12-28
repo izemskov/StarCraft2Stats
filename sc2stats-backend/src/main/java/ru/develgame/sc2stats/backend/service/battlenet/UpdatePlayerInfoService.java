@@ -9,10 +9,17 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import ru.develgame.sc2stats.backend.dto.battlenet.player.common.BattleNetApiAllPlayerInfoResponseDto;
+import ru.develgame.sc2stats.backend.dto.battlenet.player.ladder.BattleNetApiLadderResponseDto;
+import ru.develgame.sc2stats.backend.dto.battlenet.player.ladder.BattleNetApiLadderTeamResponseDto;
+import ru.develgame.sc2stats.backend.dto.battlenet.player.ladder.BattleNetApiPlayerLadderResponseDto;
+import ru.develgame.sc2stats.backend.dto.battlenet.player.ladder.BattleNetApiPlayerLadderShowcaseResponseDto;
 import ru.develgame.sc2stats.backend.entity.Player;
 import ru.develgame.sc2stats.backend.repository.PlayerRepository;
 
 import java.util.List;
+
+import static ru.develgame.sc2stats.backend.utils.BattleNetConst.BATTLE_NET_TYPE_1v1;
+import static ru.develgame.sc2stats.backend.utils.BattleNetConst.BATTLE_NET_TYPE_2v2;
 
 @Service
 @RequiredArgsConstructor
@@ -41,7 +48,7 @@ public class UpdatePlayerInfoService {
         }
 
         updatePlayerCommonInfo(request, player);
-        //updatePlayerMMR(request, player);
+        updatePlayerMMR(request, player);
 
         playerRepository.save(player);
     }
@@ -54,7 +61,8 @@ public class UpdatePlayerInfoService {
         if (response.getStatusCode() != HttpStatus.OK
                 || response.getBody() == null
                 || response.getBody().career() == null) {
-            log.warn(String.format("Cannot get data from Battle.net (profile). Code: %d", response.getStatusCode().value()));
+            log.warn(String.format("Cannot get data from Battle.net (profile). Code: %d",
+                    response.getStatusCode().value()));
             return;
         }
 
@@ -71,23 +79,24 @@ public class UpdatePlayerInfoService {
         }
     }
 
-    /*private void updatePlayerMMR(HttpEntity<MultiValueMap<String, String>> request, SC2Player sc2Player) {
-        List<BattleNetApiSC2PlayerLadderShowcaseResponseDto> playerLadders = getPlayerLadders(request);
+    private void updatePlayerMMR(HttpEntity<MultiValueMap<String, String>> request, Player player) {
+        List<BattleNetApiPlayerLadderShowcaseResponseDto> playerLadders = getPlayerLadders(request);
         if (playerLadders == null) {
             return;
         }
-        processAllPlayerLadders(request, playerLadders, sc2Player);
+        processAllPlayerLadders(request, playerLadders, player);
     }
 
-    private List<BattleNetApiSC2PlayerLadderShowcaseResponseDto> getPlayerLadders(HttpEntity<MultiValueMap<String, String>> request) {
-        ResponseEntity<BattleNetApiSC2PlayerLadderResponseDto> response = restTemplate.exchange(
-                "https://eu.api.blizzard.com/sc2/profile/2/2/823560/ladder/summary?locale=en_US", HttpMethod.GET, request,
-                BattleNetApiSC2PlayerLadderResponseDto.class);
+    private List<BattleNetApiPlayerLadderShowcaseResponseDto> getPlayerLadders(HttpEntity<MultiValueMap<String, String>> request) {
+        ResponseEntity<BattleNetApiPlayerLadderResponseDto> response = restTemplate.exchange(
+                baseUrl + "/sc2/profile/2/2/%s/ladder/summary?locale=en_US".formatted(playerId), HttpMethod.GET,
+                request, BattleNetApiPlayerLadderResponseDto.class);
 
         if (response.getStatusCode() != HttpStatus.OK
                 || response.getBody() == null
                 || response.getBody().allLadderMemberships() == null) {
-            log.warn(String.format("Cannot get data from Battle.net (player ladders). Code: %d", response.getStatusCode().value()));
+            log.warn(String.format("Cannot get data from Battle.net (player ladders). Code: %d",
+                    response.getStatusCode().value()));
             return null;
         }
 
@@ -95,23 +104,23 @@ public class UpdatePlayerInfoService {
     }
 
     private void processAllPlayerLadders(HttpEntity<MultiValueMap<String, String>> request,
-                                         List<BattleNetApiSC2PlayerLadderShowcaseResponseDto> playerLadders,
-                                         SC2Player sc2Player) {
-        for (BattleNetApiSC2PlayerLadderShowcaseResponseDto playerLadder : playerLadders) {
-            if (playerLadder.localizedGameMode().contains("1v1")) {
-                int mmr = processPlayerLadder(request, playerLadder, sc2Player);
+                                         List<BattleNetApiPlayerLadderShowcaseResponseDto> playerLadders,
+                                         Player player) {
+        for (BattleNetApiPlayerLadderShowcaseResponseDto playerLadder : playerLadders) {
+            if (playerLadder.localizedGameMode().contains(BATTLE_NET_TYPE_1v1)) {
+                int mmr = processPlayerLadder(request, playerLadder);
                 if (mmr != 0) {
-                    sc2Player.setCurrentMMR(mmr);
-                    if (mmr > sc2Player.getBestMMR()) {
-                        sc2Player.setBestMMR(mmr);
+                    player.setCurrentMMR(mmr);
+                    if (mmr > player.getBestMMR()) {
+                        player.setBestMMR(mmr);
                     }
                 }
-            } else if (playerLadder.localizedGameMode().contains("2v2")) {
-                int mmr = processPlayerLadder(request, playerLadder, sc2Player);
+            } else if (playerLadder.localizedGameMode().contains(BATTLE_NET_TYPE_2v2)) {
+                int mmr = processPlayerLadder(request, playerLadder);
                 if (mmr != 0) {
-                    sc2Player.setCurrentMMR2x2(mmr);
-                    if (mmr > sc2Player.getBestMMR2x2()) {
-                        sc2Player.setBestMMR2x2(mmr);
+                    player.setCurrentMMR2x2(mmr);
+                    if (mmr > player.getBestMMR2x2()) {
+                        player.setBestMMR2x2(mmr);
                     }
                 }
             }
@@ -119,25 +128,25 @@ public class UpdatePlayerInfoService {
     }
 
     private int processPlayerLadder(HttpEntity<MultiValueMap<String, String>> request,
-                                     BattleNetApiSC2PlayerLadderShowcaseResponseDto playerLadder,
-                                     SC2Player sc2Player) {
-        ResponseEntity<BattleNetApiSC2LadderResponseDto> response = restTemplate.exchange(
-                "https://eu.api.blizzard.com/sc2/profile/2/2/823560/ladder/" + playerLadder.ladderId() + "?locale=en_US",
-                HttpMethod.GET, request, BattleNetApiSC2LadderResponseDto.class);
+                                     BattleNetApiPlayerLadderShowcaseResponseDto playerLadder) {
+        ResponseEntity<BattleNetApiLadderResponseDto> response = restTemplate.exchange(
+                baseUrl + "/sc2/profile/2/2/%s/ladder/%s?locale=en_US".formatted(playerId, playerLadder.ladderId()),
+                HttpMethod.GET, request, BattleNetApiLadderResponseDto.class);
 
         if (response.getStatusCode() != HttpStatus.OK
                 || response.getBody() == null
                 || response.getBody().ladderTeams() == null) {
-            log.warn(String.format("Cannot get data from Battle.net (ladder). Code: %d", response.getStatusCode().value()));
+            log.warn(String.format("Cannot get data from Battle.net (ladder). Code: %d",
+                    response.getStatusCode().value()));
             return 0;
         }
 
-        for (BattleNetApiSC2LadderTeamResponseDto ladderTeam : response.getBody().ladderTeams()) {
-            if (ladderTeam.teamMembers().stream().filter(t -> t.id().equals("823560")).findFirst().isPresent()) {
+        for (BattleNetApiLadderTeamResponseDto ladderTeam : response.getBody().ladderTeams()) {
+            if (ladderTeam.teamMembers().stream().filter(t -> t.id().equals(playerId)).findFirst().isPresent()) {
                 return ladderTeam.mmr();
             }
         }
 
         return 0;
-    }*/
+    }
 }
