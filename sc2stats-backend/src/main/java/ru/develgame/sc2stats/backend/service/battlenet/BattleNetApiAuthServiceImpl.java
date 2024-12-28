@@ -19,7 +19,7 @@ public class BattleNetApiAuthServiceImpl implements BattleNetApiAuthService {
     private final BattleNetProperties battleNetProperties;
     private final RestTemplate restTemplate;
 
-    private String authUrl = "https://oauth.battle.net/token";
+    private String baseUrl = "https://oauth.battle.net";
 
     @Override
     public String getAccessToken() {
@@ -38,7 +38,7 @@ public class BattleNetApiAuthServiceImpl implements BattleNetApiAuthService {
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
 
-        ResponseEntity<BattleNetApiAccessTokenResponseDto> response = restTemplate.postForEntity(authUrl,
+        ResponseEntity<BattleNetApiAccessTokenResponseDto> response = restTemplate.postForEntity(baseUrl + "/token",
                 request, BattleNetApiAccessTokenResponseDto.class);
 
         return response.getBody().accessToken();

@@ -1,3 +1,10 @@
+sc:
+  playerId: playerId
+
+battlenet:
+  clientId: clientId
+  clientSecret: clientSecret
+
 spring:
   h2:
     console:
@@ -12,7 +19,3 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-
-battlenet:
-  clientId: clientId
-  clientSecret: clientSecret

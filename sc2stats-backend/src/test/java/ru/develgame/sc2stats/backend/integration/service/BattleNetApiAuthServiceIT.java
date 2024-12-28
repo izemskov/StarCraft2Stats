@@ -4,22 +4,18 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockserver.integration.ClientAndServer;
 import org.mockserver.model.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Import;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
+import ru.develgame.sc2stats.backend.integration.configuration.BaseServiceIT;
 import ru.develgame.sc2stats.backend.integration.configuration.TestExternalServiceConfiguration;
 import ru.develgame.sc2stats.backend.service.battlenet.BattleNetApiAuthService;
 
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
 
-@ExtendWith(SpringExtension.class)
-@Import(TestExternalServiceConfiguration.class)
-class BattleNetApiAuthServiceIT {
+class BattleNetApiAuthServiceIT extends BaseServiceIT {
     @Autowired
     private BattleNetApiAuthService battleNetApiAuthService;
 
@@ -29,8 +25,8 @@ class BattleNetApiAuthServiceIT {
     public void init() {
         mockServer = TestExternalServiceConfiguration.getStartedServer();
 
-        ReflectionTestUtils.setField(battleNetApiAuthService, "authUrl",
-                "http://localhost:" + mockServer.getLocalPort() + "/token");
+        ReflectionTestUtils.setField(battleNetApiAuthService, "baseUrl",
+                "http://localhost:" + mockServer.getLocalPort());
     }
 
     @AfterEach
