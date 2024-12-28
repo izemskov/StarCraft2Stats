@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class UpdateScheduler {
     private final UpdateMatchHistoryService updateMatchHistoryService;
     private final UpdatePlayerInfoService updatePlayerInfoService;
-//    private final BattleNetUpdateDateService battleNetUpdateDateService;
+    private final UpdateDateService updateDateService;
     private final BattleNetApiAuthService battleNetApiAuthService;
 
     @Scheduled(fixedRateString = "3600000", initialDelayString = "5000")
@@ -20,7 +20,7 @@ public class UpdateScheduler {
 
         updateMatchHistoryService.updateMatchHistory(accessToken);
         updatePlayerInfoService.updatePlayerInfo(accessToken);
-//
-//        battleNetUpdateDateService.updateLastUpdateDate();
+
+        updateDateService.updateLastUpdateDate();
     }
 }
