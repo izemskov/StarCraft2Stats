@@ -3,7 +3,7 @@
 
     <?link rel="stylesheet" type="text/css" href="/css/dark.css"?>
 
-    <div id="mainView" height="100%" width="100%" apply="ru.develgame.sc2stats.composer.PlayerInfoComposer">
+    <div id="mainView" height="100%" width="100%" apply="ru.develgame.sc2stats.frontend.composer.PlayerInfoComposer">
         <include src="~./widgets/mainmenu.zul"/>
 
         <space orient="horizontal" bar="true" spacing="20px" />
@@ -16,7 +16,7 @@
 
         <listbox id="playerInfoListBox"
                  style="margin-top: 10px"
-                 itemRenderer="ru.develgame.sc2stats.render.KeyValueItemRender">
+                 itemRenderer="ru.develgame.sc2stats.frontend.render.KeyValueItemRender">
             <listhead>
                 <listheader>Key</listheader>
                 <listheader>Value</listheader>

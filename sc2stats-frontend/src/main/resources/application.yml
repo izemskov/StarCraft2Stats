@@ -2,6 +2,8 @@ sc:
   rest-template:
     connect-timeout: 20000
     response-timeout: 20000
+  backend:
+    baseUrl: http://localhost:8080
 
 server:
   port: 80
@@ -9,18 +11,3 @@ server:
 zk:
   resource-uri: /zkres
   zul-view-resolver-prefix: /
-
-spring:
-  h2:
-    console:
-      enabled: false
-      path: /h2
-
-  datasource:
-    url: jdbc:h2:file:~/sc2stats_db
-    username: sa
-    password: password
-    driver-class-name: org.h2.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update

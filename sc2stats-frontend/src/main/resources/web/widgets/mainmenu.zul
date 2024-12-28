@@ -1,5 +1,5 @@
 <zk>
-    <div apply="ru.develgame.sc2stats.composer.MainMenuComposer">
+    <div apply="ru.develgame.sc2stats.frontend.composer.MainMenuComposer">
         <hbox style="margin-bottom: 5px;">
             <button iconSclass="z-icon-bars" popup="mp"/>
             <label id="titleLabel"

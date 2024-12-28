@@ -4,23 +4,8 @@ sc:
     response-timeout: 20000
 
 server:
-  port: 80
+  port: 8082
 
 zk:
   resource-uri: /zkres
   zul-view-resolver-prefix: /
-
-spring:
-  h2:
-    console:
-      enabled: true
-      path: /h2
-
-  datasource:
-    url: jdbc:h2:file:~/sc2stats_db
-    username: sa
-    password: password
-    driver-class-name: org.h2.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update

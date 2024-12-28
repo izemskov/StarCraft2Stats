@@ -3,7 +3,7 @@
 
     <?link rel="stylesheet" type="text/css" href="/css/dark.css"?>
 
-    <div id="mainView" height="100%" width="100%" apply="ru.develgame.sc2stats.composer.IndexComposer">
+    <div id="mainView" height="100%" width="100%" apply="ru.develgame.sc2stats.frontend.composer.IndexComposer">
         <include src="~./widgets/mainmenu.zul"/>
 
         <space orient="horizontal" bar="true" spacing="20px" />
@@ -14,7 +14,7 @@
                  style="margin-top: 10px"
                  mold="paging"
                  pageSize="10"
-                 itemRenderer="ru.develgame.sc2stats.render.SC2DailyListItemRender">
+                 itemRenderer="ru.develgame.sc2stats.frontend.render.DailyListItemRender">
             <listhead>
                 <listheader>Date</listheader>
                 <listheader>Type</listheader>
@@ -31,7 +31,7 @@
                  style="margin-top: 10px"
                  mold="paging"
                  pageSize="25"
-                 itemRenderer="ru.develgame.sc2stats.render.SC2MatchesListItemRender">
+                 itemRenderer="ru.develgame.sc2stats.frontend.render.MatchesListItemRender">
             <listhead>
                 <listheader>Map</listheader>
                 <listheader>Type</listheader>
