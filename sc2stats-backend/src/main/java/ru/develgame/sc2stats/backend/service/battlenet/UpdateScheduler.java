@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @ConditionalOnExpression("${sc.update.enable:false}")
 public class UpdateScheduler {
     private final UpdateMatchHistoryService updateMatchHistoryService;
-//    private final UpdateSC2PlayerInfo updateSC2PlayerInfo;
+    private final UpdatePlayerInfoService updatePlayerInfoService;
 //    private final BattleNetUpdateDateService battleNetUpdateDateService;
     private final BattleNetApiAuthService battleNetApiAuthService;
 
@@ -19,7 +19,7 @@ public class UpdateScheduler {
         String accessToken = battleNetApiAuthService.getAccessToken();
 
         updateMatchHistoryService.updateMatchHistory(accessToken);
-//        updateSC2PlayerInfo.updateSC2PlayerInfo(accessToken);
+        updatePlayerInfoService.updatePlayerInfo(accessToken);
 //
 //        battleNetUpdateDateService.updateLastUpdateDate();
     }
