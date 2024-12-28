@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import static ru.develgame.sc2stats.backend.utils.BattleNetConst.BATTLE_NET_MATCH_DECISION_WIN;
+
 @Service
 @RequiredArgsConstructor
 public class DailyServiceImpl implements DailyService {
@@ -27,7 +29,7 @@ public class DailyServiceImpl implements DailyService {
             daily.setTimestamp(match.getDate());
         }
 
-        if (match.getDecision().equals("Win")) {
+        if (match.getDecision().equals(BATTLE_NET_MATCH_DECISION_WIN)) {
             daily.setWins(daily.getWins() + 1);
         } else {
             daily.setLosses(daily.getLosses() + 1);

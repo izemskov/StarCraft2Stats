@@ -11,13 +11,19 @@ import ru.develgame.sc2stats.backend.mapper.MatchMapper;
 
 @ExtendWith(SpringExtension.class)
 class MatchMapperTest {
-
     @InjectMocks
     private MatchMapper matchMapper;
 
     @Test
     void should_mapToDto() {
-        Match expected = new Match(100L, "map", "type", "decision", "speed", 1000000L);
+        Match expected = Match.builder()
+                .id(100L)
+                .map("map")
+                .type("type")
+                .decision("decision")
+                .speed("speed")
+                .date(1000000L)
+                .build();
         MatchResponseDto actual = matchMapper.toDto(expected);
 
         Assertions.assertEquals(expected.getMap(), actual.map());
