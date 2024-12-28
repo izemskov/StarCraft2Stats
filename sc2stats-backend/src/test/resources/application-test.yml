@@ -12,3 +12,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+
+battlenet:
+  clientId: clientId
+  clientSecret: clientSecret
