@@ -3,7 +3,7 @@ sc:
     connect-timeout: 20000
     response-timeout: 20000
   update:
-    enable: true
+    enable: false
 
 server:
   port: 8080

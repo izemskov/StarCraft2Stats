@@ -48,6 +48,18 @@ body {
     color: rgba(0, 0, 0, 0.9);
 }
 
+.z-window {
+    background-color: #2F2F2F;
+}
+
+.z-window-content {
+    background-color: #2F2F2F;
+}
+
+.z-window-header {
+    color: rgba(255, 255, 255, 0.9);
+}
+
 .sc2stats-title-label {
     margin-left: 5px;
     font-size:22pt;

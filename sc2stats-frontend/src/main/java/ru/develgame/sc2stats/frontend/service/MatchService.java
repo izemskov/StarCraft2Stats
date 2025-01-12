@@ -10,28 +10,28 @@ import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 import ru.develgame.sc2stats.exception.GetDataException;
-import ru.develgame.sc2stats.frontend.dto.DailyResponseDto;
+import ru.develgame.sc2stats.frontend.dto.MatchResponseDto;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class DailyService {
+public class MatchService {
     private final RestTemplate restTemplate;
 
     @Value("${sc.backend.baseUrl}")
     private final String backendBaseUrl;
 
-    public List<DailyResponseDto> fetchAll() {
+    public List<MatchResponseDto> fetchAll() {
         try {
-            ResponseEntity<DailyResponseDto[]> response = restTemplate.getForEntity(backendBaseUrl + "/sc2/daily",
-                    DailyResponseDto[].class);
+            ResponseEntity<MatchResponseDto[]> response = restTemplate.getForEntity(backendBaseUrl + "/sc2/match",
+                    MatchResponseDto[].class);
             if (response.getStatusCode() != HttpStatus.OK) {
-                throw new GetDataException("Cannot get daily. Error: %d".formatted(response.getStatusCode().value()));
+                throw new GetDataException("Cannot get match history. Error: %d".formatted(response.getStatusCode().value()));
             }
 
             if (response.getBody() == null) {
-                throw new GetDataException("Cannot get daily. Empty response");
+                throw new GetDataException("Cannot get match history. Empty response");
             }
 
             return List.of(response.getBody());
