@@ -14,7 +14,7 @@ spring:
       enabled: true
       path: /h2
   datasource:
-    url: jdbc:h2:file:~/sc2stats_db
+    url: jdbc:h2:file:~/ilya/sc2stats_db
     username: sa
     password: password
     driver-class-name: org.h2.Driver
