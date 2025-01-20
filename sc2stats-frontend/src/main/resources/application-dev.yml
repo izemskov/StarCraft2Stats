@@ -2,6 +2,8 @@ sc:
   rest-template:
     connect-timeout: 20000
     response-timeout: 20000
+  backend:
+    baseUrl: http://localhost:8080
 
 server:
   port: 8082

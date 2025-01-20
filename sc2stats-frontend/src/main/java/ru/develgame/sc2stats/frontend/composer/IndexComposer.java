@@ -8,7 +8,7 @@ import org.zkoss.zul.Div;
 import org.zkoss.zul.ListModelList;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
-import ru.develgame.sc2stats.exception.GetDataException;
+import ru.develgame.sc2stats.frontend.exception.GetDataException;
 import ru.develgame.sc2stats.frontend.dto.DailyResponseDto;
 import ru.develgame.sc2stats.frontend.dto.MatchResponseDto;
 import ru.develgame.sc2stats.frontend.service.DailyService;

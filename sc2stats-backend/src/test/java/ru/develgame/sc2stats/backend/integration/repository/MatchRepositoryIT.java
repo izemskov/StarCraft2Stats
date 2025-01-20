@@ -39,4 +39,22 @@ class MatchRepositoryIT extends BaseRepositoryIT {
         Assertions.assertEquals(match2.getId(), actual.get(1).getId());
         Assertions.assertEquals(match.getId(), actual.get(2).getId());
     }
+
+    @Test
+    void should_findByDate() {
+        Match match = new Match();
+        match.setDate(1000000L);
+        match = matchRepository.save(match);
+
+        Match match2 = new Match();
+        match2.setDate(2000000L);
+        match2 = matchRepository.save(match2);
+
+        Match match3 = new Match();
+        match3.setDate(3000000L);
+        match3 = matchRepository.save(match3);
+
+        Match actual = matchRepository.findByDate(2000000L);
+        Assertions.assertEquals(match2.getId(), actual.getId());
+    }
 }

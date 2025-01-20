@@ -1,4 +1,4 @@
-package ru.develgame.sc2stats.frontend.resttemplate;
+package ru.develgame.sc2stats.frontend.configuration.resttemplate;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;

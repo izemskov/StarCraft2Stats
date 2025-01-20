@@ -1,4 +1,4 @@
-package ru.develgame.sc2stats.frontend.resttemplate;
+package ru.develgame.sc2stats.frontend.configuration.resttemplate;
 
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.impl.classic.HttpClients;
