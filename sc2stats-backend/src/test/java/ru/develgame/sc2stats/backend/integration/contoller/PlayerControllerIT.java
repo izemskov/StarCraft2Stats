@@ -60,4 +60,11 @@ class PlayerControllerIT extends BaseRestControllerIT {
         Assertions.assertEquals(expected.getCurrentMMR2x2(), actual.currentMMR2x2());
         Assertions.assertEquals(expected.getBestMMR2x2(), actual.bestMMR2x2());
     }
+
+    @Test
+    void should_notFound() throws Exception {
+        mockMvc.perform(get("/sc2/player")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
+    }
 }

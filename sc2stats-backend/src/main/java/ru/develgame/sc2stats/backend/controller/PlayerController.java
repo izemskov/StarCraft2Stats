@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.develgame.sc2stats.backend.dto.PlayerResponseDto;
+import ru.develgame.sc2stats.backend.entity.Player;
 import ru.develgame.sc2stats.backend.mapper.PlayerMapper;
 import ru.develgame.sc2stats.backend.service.PlayerService;
 
@@ -18,6 +19,10 @@ public class PlayerController {
 
     @GetMapping
     public ResponseEntity<PlayerResponseDto> fetchOne() {
-        return ResponseEntity.ok(playerMapper.toDto(playerService.getCurrentPlayer()));
+        Player player = playerService.getCurrentPlayer();
+        if (player == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(playerMapper.toDto(player));
     }
 }
