@@ -50,7 +50,7 @@ public class PlayerInfoComposer extends SelectorComposer<Div> {
                 playerListBoxModel.add(new AbstractMap.SimpleEntry<>("Best team league",
                         player.bestTeamFinishLeagueName()));
                 playerListBoxModel.add(new AbstractMap.SimpleEntry<>("Best team league times",
-                        Integer.toString(player.best1v1FinishTimesAchieved())));
+                        Integer.toString(player.bestTeamFinishTimesAchieved())));
                 playerInfoListBox.setModel(playerListBoxModel);
             }
         } catch (GetDataException ex) {
