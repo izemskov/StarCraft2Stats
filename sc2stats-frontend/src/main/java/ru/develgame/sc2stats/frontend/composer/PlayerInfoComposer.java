@@ -7,7 +7,7 @@ import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.*;
 import ru.develgame.sc2stats.frontend.dto.PlayerResponseDto;
 import ru.develgame.sc2stats.frontend.exception.GetDataException;
-import ru.develgame.sc2stats.frontend.service.ChartServiceImpl;
+import ru.develgame.sc2stats.frontend.service.ChartService;
 import ru.develgame.sc2stats.frontend.service.PlayerService;
 
 import java.util.AbstractMap;
@@ -25,7 +25,7 @@ public class PlayerInfoComposer extends SelectorComposer<Div> {
     private Listbox playerInfoListBox;
 
     @WireVariable
-    private ChartServiceImpl chartServiceImpl;
+    private ChartService chartService;
 
     @WireVariable
     private PlayerService playerService;
@@ -37,8 +37,8 @@ public class PlayerInfoComposer extends SelectorComposer<Div> {
         try {
             PlayerResponseDto player = playerService.fetchPlayerInfo();
             if (player != null) {
-                mmrCurrent.setContent(chartServiceImpl.createMMRChart(player.currentMMR(), "Current"));
-                mmrBest.setContent(chartServiceImpl.createMMRChart(player.bestMMR(), "Best"));
+                mmrCurrent.setContent(chartService.createMMRChart(player.currentMMR(), "Current"));
+                mmrBest.setContent(chartService.createMMRChart(player.bestMMR(), "Best"));
 
                 ListModelList<Map.Entry<String, String>> playerListBoxModel = new ListModelList<>();
                 playerListBoxModel.add(new AbstractMap.SimpleEntry<>("Total games",
