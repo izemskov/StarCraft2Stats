@@ -34,6 +34,8 @@ public class BattleNetComposer extends SelectorComposer<Div> {
     @WireVariable
     private BattleNetPropertiesProxy battleNetPropertiesProxy;
 
+    public static final String BATTLE_NET_ROOT_URL = "https://oauth.battle.net/oauth";
+
     @Override
     public void doAfterCompose(Div comp) throws Exception {
         super.doAfterCompose(comp);
@@ -55,7 +57,7 @@ public class BattleNetComposer extends SelectorComposer<Div> {
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
 
-        ResponseEntity<BattleNetAuthResponse> response = restTemplate.postForEntity("https://oauth.battle.net/oauth/token",
+        ResponseEntity<BattleNetAuthResponse> response = restTemplate.postForEntity(BATTLE_NET_ROOT_URL + "/token",
                 request, BattleNetAuthResponse.class);
 
         if (response.getStatusCode() != HttpStatus.OK || response.getBody() == null) {
@@ -78,7 +80,7 @@ public class BattleNetComposer extends SelectorComposer<Div> {
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
 
         ResponseEntity<BattleNetUserInfoDto> response = restTemplate.exchange(
-                "https://oauth.battle.net/oauth/userinfo", HttpMethod.GET, request, BattleNetUserInfoDto.class);
+                BATTLE_NET_ROOT_URL + "/userinfo", HttpMethod.GET, request, BattleNetUserInfoDto.class);
 
         Map<String, String> userInfoMap = new HashMap<>();
         userInfoMap.put("sub", response.getBody().sub());
