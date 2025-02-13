@@ -1,0 +1,10 @@
+<zk>
+    <client-config>
+        <debug-js>false</debug-js>
+    </client-config>
+    <config-name>battlenet-oauth-app</config-name>
+    <session-config>
+        <session-timeout>86400</session-timeout>
+        <timeout-uri>/timeout</timeout-uri>
+    </session-config>
+</zk>

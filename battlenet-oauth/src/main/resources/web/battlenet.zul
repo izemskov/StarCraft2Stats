@@ -1,0 +1,37 @@
+<zk>
+    <div style="margin-top: 20px;" apply="ru.develgame.sc2stats.battlenet.oauth.composer.BattleNetComposer">
+        <vbox>
+            <label value="Battle Net Client Application Auth Flow" style="font-size:21pt"/>
+
+            <label value="Step 1. Auth code:" style="font-size:18pt"/>
+
+            <label id="authCodeLabel" style="font-size:18pt"/>
+
+            <space orient="horizontal" bar="true" spacing="20px" />
+
+            <label value="Step 2. Access token:" style="font-size:18pt"/>
+
+            <button id="accessTokenExchangeButton" label="Request Access Token"/>
+
+            <textbox id="accessTokenTextbox" readonly="true" style="width: 1024px;"/>
+
+            <space orient="horizontal" bar="true" spacing="20px" />
+
+            <label value="Step 3. Get current player info:" style="font-size:18pt"/>
+
+            <button id="playerInfoRequestButton" label="Request Player Info"/>
+
+            <listbox id="userInfoList" style="margin-top: 20px; width: 1024px;"
+                     itemRenderer="ru.develgame.sc2stats.battlenet.oauth.render.KeyValueItemRender">
+                <listhead>
+                    <listheader>Key</listheader>
+                    <listheader>Value</listheader>
+                </listhead>
+            </listbox>
+
+            <space orient="horizontal" bar="true" spacing="20px" />
+
+            <button id="redirectButton" label="To main page"/>
+        </vbox>
+    </div>
+</zk>

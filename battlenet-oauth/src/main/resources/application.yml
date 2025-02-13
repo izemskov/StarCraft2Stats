@@ -1,0 +1,6 @@
+server:
+  port: 8084
+
+zk:
+  resource-uri: /zkres
+  zul-view-resolver-prefix: /

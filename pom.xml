@@ -32,5 +32,6 @@
     <modules>
         <module>sc2stats-backend</module>
         <module>sc2stats-frontend</module>
+        <module>battlenet-oauth</module>
     </modules>
 </project>
