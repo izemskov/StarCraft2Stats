@@ -4,7 +4,6 @@
     <config-name>sc2stats</config-name>
 
     <client-config>
-        <click-filter-delay>0</click-filter-delay>
         <debug-js>false</debug-js>
         <error-reload>
             <device-type>ajax</device-type>
@@ -18,8 +17,9 @@
     </client-config>
 
     <session-config>
+        <session-timeout>300</session-timeout>
         <device-type>ajax</device-type>
-        <timeout-message>script:session_timed_out()</timeout-message>
+        <timeout-uri></timeout-uri>
     </session-config>
 
     <library-property><name>org.zkoss.zul.progressbox.position</name><value>center</value></library-property>
