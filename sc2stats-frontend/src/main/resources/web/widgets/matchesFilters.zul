@@ -4,11 +4,13 @@
 
         <vbox>
             <combobox id="matchTypeCombobox"
-                      itemRenderer="ru.develgame.sc2stats.frontend.render.MatchTypeComboItemRender"/>
+                      itemRenderer="ru.develgame.sc2stats.frontend.render.MatchTypeComboItemRender"
+                      readonly="true"/>
 
             <combobox id="matchDecision"
                       style="margin-top: 10px;"
-                      itemRenderer="ru.develgame.sc2stats.frontend.render.MatchDecisionComboItemRender"/>
+                      itemRenderer="ru.develgame.sc2stats.frontend.render.MatchDecisionComboItemRender"
+                      readonly="true"/>
         </vbox>
 
         <hlayout style="text-align: right; margin-top: 20px;">
