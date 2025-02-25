@@ -7,8 +7,8 @@ Main advantages:
 2. The application calculates daily statistics (how many matches per day were won or lost in each of the modes)
 3. Visual display of results and MMR
 
-![Screenshot](misc/screen1.png)
-![Screenshot](misc/screen2.png)
+| ![Screenshot](misc/screen3.png) | ![Screenshot](misc/screen4.png) |
+|---------------------------------|---------------------------------|
 
 ## How to run
 
