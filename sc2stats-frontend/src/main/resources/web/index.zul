@@ -25,7 +25,10 @@
 
         <space orient="horizontal" bar="true" spacing="20px" />
 
-        <label value="Full matches history" style="font-size:18pt"/>
+        <hbox align="center" width="100%" widths="99%,1%">
+            <label value="Full matches history" sclass="sc2stats-matches-label"/>
+            <button id="matchesFiltersButton" iconSclass="z-icon-filter"/>
+        </hbox>
 
         <listbox id="matchesList"
                  style="margin-top: 10px"

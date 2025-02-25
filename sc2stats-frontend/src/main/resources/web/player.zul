@@ -16,7 +16,7 @@
 
         <listbox id="playerInfoListBox"
                  style="margin-top: 10px"
-                 itemRenderer="ru.develgame.sc2stats.frontend.render.KeyValueItemRender">
+                 itemRenderer="ru.develgame.sc2stats.frontend.render.KeyValueListItemRender">
             <listhead>
                 <listheader>Key</listheader>
                 <listheader>Value</listheader>

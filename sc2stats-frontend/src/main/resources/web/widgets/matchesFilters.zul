@@ -1,0 +1,19 @@
+<zk>
+    <window id="matchesFilters" title="Select filters" border="normal" width="300px"
+            apply="ru.develgame.sc2stats.frontend.composer.MatchesFiltersComposer">
+
+        <vbox>
+            <combobox id="matchTypeCombobox"
+                      itemRenderer="ru.develgame.sc2stats.frontend.render.MatchTypeComboItemRender"/>
+
+            <combobox id="matchDecision"
+                      style="margin-top: 10px;"
+                      itemRenderer="ru.develgame.sc2stats.frontend.render.MatchDecisionComboItemRender"/>
+        </vbox>
+
+        <hlayout style="text-align: right; margin-top: 20px;">
+            <button id="okButton" label="OK"/>
+            <button id="cancelButton" label="Cancel"/>
+        </hlayout>
+    </window>
+</zk>
