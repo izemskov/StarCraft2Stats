@@ -1,7 +1,7 @@
 <zk>
     <?page title="StarCraft 2 Team info"?>
 
-    <?link rel="stylesheet" type="text/css" href="/css/dark.css"?>
+    <?link rel="stylesheet" type="text/css" href="/css/dark.css?v=1"?>
 
     <div id="mainView" height="100%" width="100%" apply="ru.develgame.sc2stats.frontend.composer.TeamInfoComposer">
         <include src="~./widgets/mainmenu.zul"/>

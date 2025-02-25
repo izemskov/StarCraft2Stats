@@ -1,7 +1,7 @@
 <zk xmlns:n="native">
     <?page title="StarCraft 2 Statistics"?>
 
-    <?link rel="stylesheet" type="text/css" href="/css/dark.css"?>
+    <?link rel="stylesheet" type="text/css" href="/css/dark.css?v=1"?>
 
     <div id="mainView" height="100%" width="100%" apply="ru.develgame.sc2stats.frontend.composer.IndexComposer">
         <include src="~./widgets/mainmenu.zul"/>
