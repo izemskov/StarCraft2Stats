@@ -2,6 +2,7 @@ package ru.develgame.sc2stats.backend.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldNameConstants;
 
 @Entity
 @Getter
@@ -9,6 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@FieldNameConstants
 @Table(name = "SC2MATCH")
 public class Match {
     @Id
@@ -19,5 +21,5 @@ public class Match {
     private String type;
     private String decision;
     private String speed;
-    private long date;
+    private Long date;
 }
