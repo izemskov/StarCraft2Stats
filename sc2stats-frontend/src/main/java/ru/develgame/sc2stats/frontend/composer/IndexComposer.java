@@ -12,6 +12,8 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.*;
+import ru.develgame.sc2stats.frontend.dto.filter.MatchDecision;
+import ru.develgame.sc2stats.frontend.dto.filter.MatchType;
 import ru.develgame.sc2stats.frontend.exception.GetDataException;
 import ru.develgame.sc2stats.frontend.dto.DailyResponseDto;
 import ru.develgame.sc2stats.frontend.dto.MatchResponseDto;
@@ -71,10 +73,10 @@ public class IndexComposer extends SelectorComposer<Div> {
     private void loadMatches() {
         try {
             Session session = Sessions.getCurrent();
-            System.out.println(session.getAttribute(FILTER_MATCH_TYPE));
-            System.out.println(session.getAttribute(FILTER_MATCH_DECISION));
 
-            matchesDataModel = new ListModelList<>(matchService.fetchAll());
+            matchesDataModel = new ListModelList<>(matchService.fetchAll(
+                    (MatchType) session.getAttribute(FILTER_MATCH_TYPE),
+                    (MatchDecision) session.getAttribute(FILTER_MATCH_DECISION)));
             matchesList.setModel(matchesDataModel);
         } catch (GetDataException ex) {
             Messagebox.show(ex.getMessage(), "Error", 0,  Messagebox.ERROR);

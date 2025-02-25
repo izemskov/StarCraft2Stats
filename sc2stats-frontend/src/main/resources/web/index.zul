@@ -32,6 +32,7 @@
 
         <listbox id="matchesList"
                  style="margin-top: 10px"
+                 sclass="always-show-paging-listbox"
                  mold="paging"
                  pageSize="25"
                  itemRenderer="ru.develgame.sc2stats.frontend.render.MatchesListItemRender">

@@ -7,7 +7,7 @@
                       itemRenderer="ru.develgame.sc2stats.frontend.render.MatchTypeComboItemRender"
                       readonly="true"/>
 
-            <combobox id="matchDecision"
+            <combobox id="matchDecisionCombobox"
                       style="margin-top: 10px;"
                       itemRenderer="ru.develgame.sc2stats.frontend.render.MatchDecisionComboItemRender"
                       readonly="true"/>

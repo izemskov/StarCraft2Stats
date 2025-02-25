@@ -69,3 +69,7 @@ body {
 .sc2stats-matches-label {
     font-size:18pt;
 }
+
+.always-show-paging-listbox .z-paging {
+    display: block !important;
+}

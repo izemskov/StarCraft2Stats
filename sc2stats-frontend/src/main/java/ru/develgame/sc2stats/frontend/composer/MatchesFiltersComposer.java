@@ -24,7 +24,7 @@ public class MatchesFiltersComposer extends SelectorComposer<Window> {
     private Combobox matchTypeCombobox;
 
     @Wire
-    private Combobox matchDecision;
+    private Combobox matchDecisionCombobox;
 
     private ListModelList<MatchType> matchTypesModel;
 
@@ -34,13 +34,18 @@ public class MatchesFiltersComposer extends SelectorComposer<Window> {
     public void doAfterCompose(Window comp) throws Exception {
         super.doAfterCompose(comp);
 
+        Session session = Sessions.getCurrent();
+
+        MatchType matchType = (MatchType) session.getAttribute(FILTER_MATCH_TYPE);
+        MatchDecision matchDecision = (MatchDecision) session.getAttribute(FILTER_MATCH_DECISION);
+
         matchTypesModel = new ListModelList<>(MatchType.values());
-        matchTypesModel.addToSelection(MatchType.TYPE_NONE);
+        matchTypesModel.addToSelection(matchType == null ? MatchType.TYPE_NONE : matchType);
         matchTypeCombobox.setModel(matchTypesModel);
 
         matchDecisionModel = new ListModelList<>(MatchDecision.values());
-        matchDecisionModel.addToSelection(MatchDecision.NONE);
-        matchDecision.setModel(matchDecisionModel);
+        matchDecisionModel.addToSelection(matchDecision == null ? MatchDecision.NONE : matchDecision);
+        matchDecisionCombobox.setModel(matchDecisionModel);
     }
 
     @Listen("onClick = #okButton")
