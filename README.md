@@ -44,7 +44,7 @@ http://localhost:8084
 
 Click on battle.net icon and finish authorization. Clicks on buttons "Request Access Token" and "Request Player Info"
 
-In the table you will view id row. Copy value and set up next environment variables
+In the table you will see id row. Copy value and set up next environment variables
 ```
 export SC_PLAYERID=
 ```
