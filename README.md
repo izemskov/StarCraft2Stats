@@ -12,18 +12,44 @@ Main advantages:
 
 ## How to run
 
-##### 1. Dependencies: Java 17 or or higher
+### 1. Dependencies: Java 17 or higher
 
-##### 2. Set up next environment variables:
+### 2. Set up next environment variables:
+
+You should get BATTLENET_CLIENTID, BATTLENET_CLIENTSECRET via this guide: https://develop.battle.net/documentation/guides/getting-started
+
+> [!IMPORTANT]
+> When you will create api client set up Redirect urls to the next values. It's important for the next steps
+> ```
+> http://localhost:8084
+> http://localhost:8084/battlenet
+> ```
+
+Set up next environment variables
 ```
 export BATTLENET_CLIENTID=
 export BATTLENET_CLIENTSECRET=
+```
+
+For get SC_PLAYERID you need use battlenet-oauth application from this repository:
+```
+chmod +x battlenet-oauth-2.1.0.jar
+./battlenet-oauth-2.1.0.jar
+```
+
+In your browser open
+```
+http://localhost:8084
+```
+
+Click on battle.net icon and finish authorization. Clicks on buttons "Request Access Token" and "Request Player Info"
+
+In the table you will view id row. Copy value and set up next environment variables
+```
 export SC_PLAYERID=
 ```
 
-You should get BATTLENET_CLIENTID, BATTLENET_CLIENTSECRET, SC_PLAYERID via this guide: https://develop.battle.net/documentation/guides/getting-started
-
-##### 3. Run backend and frontend
+#### 3. Run backend and frontend
 
 ```
 chmod +x sc2stats-backend-2.0.0.jar
@@ -31,3 +57,11 @@ chmod +x sc2stats-backend-2.0.0.jar
 chmod +x ./sc2stats-frontend-2.0.0.jar 
 ./sc2stats-frontend-2.0.0.jar &
 ```
+
+In your browser open 
+
+```
+http://localhost
+```
+
+Enjoy it!
