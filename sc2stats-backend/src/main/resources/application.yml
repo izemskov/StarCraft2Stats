@@ -6,7 +6,7 @@ sc:
     enable: true
 
 server:
-  port: 8080
+  port: 8088
 
 spring:
   h2:
