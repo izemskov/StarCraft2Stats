@@ -10,6 +10,4 @@ public interface MapService {
     void updateMap(Match match);
 
     List<Map> fetchAll(MatchType type);
-
-    void updateMaps();
 }

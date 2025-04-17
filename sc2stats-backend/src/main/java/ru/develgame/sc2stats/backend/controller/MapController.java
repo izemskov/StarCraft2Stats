@@ -22,7 +22,6 @@ public class MapController {
 
     @GetMapping
     public ResponseEntity<List<MapResponseDto>> fetchAll(@RequestParam(required = false) MatchType type) {
-        mapService.updateMaps();
         return ResponseEntity.ok(mapService.fetchAll(type).stream()
                 .map(mapMapper::toDto)
                 .toList());
