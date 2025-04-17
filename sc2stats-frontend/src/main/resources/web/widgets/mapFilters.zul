@@ -1,0 +1,16 @@
+<zk>
+    <window id="mapsFilters" title="Select filters" border="normal" width="300px"
+            apply="ru.develgame.sc2stats.frontend.composer.MapsFiltersComposer">
+
+        <vbox>
+            <combobox id="matchTypeCombobox"
+                      itemRenderer="ru.develgame.sc2stats.frontend.render.MatchTypeComboItemRender"
+                      readonly="true"/>
+        </vbox>
+
+        <hlayout style="text-align: right; margin-top: 20px;">
+            <button id="okButton" label="OK"/>
+            <button id="cancelButton" label="Cancel"/>
+        </hlayout>
+    </window>
+</zk>

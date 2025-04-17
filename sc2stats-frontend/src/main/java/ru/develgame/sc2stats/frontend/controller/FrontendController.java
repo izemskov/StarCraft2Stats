@@ -21,4 +21,9 @@ public class FrontendController {
     public String teamInfo() {
         return "team";
     }
+
+    @GetMapping("maps")
+    public String mapsInfo() {
+        return "maps";
+    }
 }

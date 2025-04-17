@@ -71,4 +71,10 @@ public class MainMenuComposer extends SelectorComposer<Div> {
         Execution exec = Executions.getCurrent();
         exec.sendRedirect("/team");
     }
+
+    @Listen("onClick = #menuMaps")
+    public void menuMapsOnClick() {
+        Execution exec = Executions.getCurrent();
+        exec.sendRedirect("/maps");
+    }
 }

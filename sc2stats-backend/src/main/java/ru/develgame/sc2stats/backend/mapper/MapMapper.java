@@ -12,6 +12,7 @@ public class MapMapper {
                 .type(dbBean.getType())
                 .wins(dbBean.getWins())
                 .losses(dbBean.getLosses())
+                .winRate(dbBean.getWinRate())
                 .build();
     }
 }

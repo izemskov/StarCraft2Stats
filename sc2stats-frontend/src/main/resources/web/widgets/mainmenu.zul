@@ -10,6 +10,7 @@
                 <menuitem label="Statistics" id="menuStatistics"/>
                 <menuitem label="Player" id="menuPlayer"/>
                 <menuitem label="Team" id="menuTeam"/>
+                <menuitem label="Maps" id="menuMaps"/>
             </menupopup>
         </hbox>
         <label id="lastUpdateLabel"/>

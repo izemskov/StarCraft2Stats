@@ -6,6 +6,7 @@ import ru.develgame.sc2stats.backend.dto.filter.MatchType;
 import ru.develgame.sc2stats.backend.entity.Map;
 import ru.develgame.sc2stats.backend.entity.Match;
 import ru.develgame.sc2stats.backend.repository.MapRepository;
+import ru.develgame.sc2stats.backend.repository.MatchRepository;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import static ru.develgame.sc2stats.backend.utils.BattleNetConst.BATTLE_NET_MATC
 @RequiredArgsConstructor
 public class MapServiceImpl implements MapService {
     private final MapRepository mapRepository;
+    private final MatchRepository matchRepository;
 
     @Override
     public void updateMap(Match match) {
@@ -30,6 +32,8 @@ public class MapServiceImpl implements MapService {
         } else {
             map.setLosses(map.getLosses() + 1);
         }
+        map.setWinRate(Math.round(((float) map.getWins() / (map.getWins() + map.getLosses())) * 100.0f));
+
         mapRepository.save(map);
     }
 
@@ -40,5 +44,13 @@ public class MapServiceImpl implements MapService {
         } else {
             return mapRepository.findAllByType(type.getEntityValue());
         }
+    }
+
+    @Override
+    public void updateMaps() {
+        mapRepository.deleteAll();
+
+        List<Match> matches = matchRepository.findAll();
+        matches.forEach(t -> updateMap(t));
     }
 }

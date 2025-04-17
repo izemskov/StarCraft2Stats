@@ -21,4 +21,6 @@ public class Map {
     private int wins;
     @ColumnDefault("0")
     private int losses;
+    @ColumnDefault("0")
+    private int winRate;
 }
