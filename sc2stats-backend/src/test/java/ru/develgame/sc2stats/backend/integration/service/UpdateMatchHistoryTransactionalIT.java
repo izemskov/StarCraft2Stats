@@ -7,23 +7,22 @@ import org.junit.jupiter.api.Test;
 import org.mockserver.integration.ClientAndServer;
 import org.mockserver.model.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.util.ReflectionTestUtils;
-import ru.develgame.sc2stats.backend.entity.Daily;
-import ru.develgame.sc2stats.backend.entity.Map;
-import ru.develgame.sc2stats.backend.entity.Match;
 import ru.develgame.sc2stats.backend.integration.configuration.BaseServiceIT;
 import ru.develgame.sc2stats.backend.integration.configuration.TestExternalServiceConfiguration;
 import ru.develgame.sc2stats.backend.repository.DailyRepository;
 import ru.develgame.sc2stats.backend.repository.MapRepository;
 import ru.develgame.sc2stats.backend.repository.MatchRepository;
+import ru.develgame.sc2stats.backend.service.DailyService;
 import ru.develgame.sc2stats.backend.service.battlenet.UpdateMatchHistoryService;
 
-import java.util.List;
-
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
 
-class UpdateMatchHistoryServiceIT extends BaseServiceIT {
+class UpdateMatchHistoryTransactionalIT extends BaseServiceIT {
     @Autowired
     private UpdateMatchHistoryService updateMatchHistoryService;
 
@@ -32,6 +31,9 @@ class UpdateMatchHistoryServiceIT extends BaseServiceIT {
 
     @Autowired
     private DailyRepository dailyRepository;
+
+    @MockBean
+    private DailyService dailyService;
 
     @Autowired
     private MapRepository mapRepository;
@@ -56,7 +58,9 @@ class UpdateMatchHistoryServiceIT extends BaseServiceIT {
     }
 
     @Test
-    void should_updateMatchHistory() {
+    void should_notSaveMatchesIfTransactionRollback() {
+        doThrow(new RuntimeException()).when(dailyService).updateDaily(any());
+
         mockServer.when(request()
                         .withMethod("GET")
                         .withPath("/sc2/legacy/profile/2/2/playerId/matches")
@@ -93,33 +97,10 @@ class UpdateMatchHistoryServiceIT extends BaseServiceIT {
                                 """)
                         .withStatusCode(200));
 
-        updateMatchHistoryService.updateMatchHistory("AccessTokenValue");
+        Assertions.assertThrowsExactly(RuntimeException.class,
+                () -> updateMatchHistoryService.updateMatchHistory("AccessTokenValue"));
 
-        Assertions.assertEquals(2, dailyRepository.findAll().size());
-        List<Daily> actual = dailyRepository.findAll();
-        Assertions.assertEquals("1v1", actual.get(0).getType());
-        Assertions.assertEquals(1, actual.get(0).getWins());
-        Assertions.assertEquals(1, actual.get(0).getLosses());
-        Assertions.assertEquals("2v2", actual.get(1).getType());
-        Assertions.assertEquals(1, actual.get(1).getWins());
-        Assertions.assertEquals(0, actual.get(1).getLosses());
-
-        Assertions.assertEquals(3, matchRepository.findAll().size());
-        List<Match> actual1 = matchRepository.findAll();
-        Assertions.assertEquals("map1", actual1.get(0).getMap());
-        Assertions.assertEquals("map2", actual1.get(1).getMap());
-        Assertions.assertEquals("map3", actual1.get(2).getMap());
-
-        Assertions.assertEquals(3, mapRepository.findAll().size());
-        List<Map> actualMap = mapRepository.findAll();
-        Assertions.assertEquals("map1", actualMap.get(0).getName());
-        Assertions.assertEquals(1, actualMap.get(0).getWins());
-        Assertions.assertEquals(0, actualMap.get(0).getLosses());
-        Assertions.assertEquals("map2", actualMap.get(1).getName());
-        Assertions.assertEquals(0, actualMap.get(1).getWins());
-        Assertions.assertEquals(1, actualMap.get(1).getLosses());
-        Assertions.assertEquals("map3", actualMap.get(2).getName());
-        Assertions.assertEquals(1, actualMap.get(2).getWins());
-        Assertions.assertEquals(0, actualMap.get(2).getLosses());
+        Assertions.assertEquals(0, matchRepository.findAll().size());
+        Assertions.assertEquals(0, dailyRepository.findAll().size());
     }
 }

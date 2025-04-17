@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -13,6 +14,7 @@ import ru.develgame.sc2stats.backend.dto.battlenet.BattleNetApiMatchesListRespon
 import ru.develgame.sc2stats.backend.entity.Match;
 import ru.develgame.sc2stats.backend.repository.MatchRepository;
 import ru.develgame.sc2stats.backend.service.DailyService;
+import ru.develgame.sc2stats.backend.service.MapService;
 
 import java.util.Objects;
 
@@ -23,11 +25,13 @@ public class UpdateMatchHistoryService {
     private final RestTemplate restTemplate;
     private final MatchRepository matchRepository;
     private final DailyService dailyService;
+    private final MapService mapService;
     @Value("${sc.playerId}")
     private final String playerId;
 
     private String baseUrl = "https://eu.api.blizzard.com";
 
+    @Transactional
     public void updateMatchHistory(String accessToken) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + accessToken);
@@ -57,13 +61,17 @@ public class UpdateMatchHistoryService {
                 continue;
             }
 
-            dailyService.updateDaily(matchRepository.save(Match.builder()
+            Match newMatch = matchRepository.save(Match.builder()
                     .map(matchDto.map())
                     .decision(matchDto.decision())
                     .speed(matchDto.speed())
                     .type(matchDto.type())
                     .date(matchDto.date())
-                    .build()));
+                    .build());
+
+            dailyService.updateDaily(newMatch);
+
+            mapService.updateMap(newMatch);
         }
     }
 }

@@ -5,8 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldNameConstants;
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
