@@ -36,4 +36,10 @@ public class Player {
 
     @ColumnDefault("0")
     private int bestMMR2x2;
+
+    @ColumnDefault("0")
+    private int currentMMR3x3;
+
+    @ColumnDefault("0")
+    private int bestMMR3x3;
 }

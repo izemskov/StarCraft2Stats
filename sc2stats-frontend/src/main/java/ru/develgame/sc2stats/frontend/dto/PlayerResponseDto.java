@@ -12,5 +12,7 @@ public record PlayerResponseDto(@JsonProperty("totalCareerGames") int totalCaree
                                 @JsonProperty("currentMMR") int currentMMR,
                                 @JsonProperty("bestMMR") int bestMMR,
                                 @JsonProperty("currentMMR2x2") int currentMMR2x2,
-                                @JsonProperty("bestMMR2x2") int bestMMR2x2) {
+                                @JsonProperty("bestMMR2x2") int bestMMR2x2,
+                                @JsonProperty("currentMMR3x3") int currentMMR3x3,
+                                @JsonProperty("bestMMR3x3") int bestMMR3x3) {
 }

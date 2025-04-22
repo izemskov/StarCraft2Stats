@@ -20,6 +20,12 @@ public class TeamInfoComposer extends SelectorComposer<Div> {
     @Wire
     private Image mmrBest2x2;
 
+    @Wire
+    private Image mmrCurrent3x3;
+
+    @Wire
+    private Image mmrBest3x3;
+
     @WireVariable
     private ChartService chartService;
 
@@ -35,6 +41,8 @@ public class TeamInfoComposer extends SelectorComposer<Div> {
             if (player != null) {
                 mmrCurrent2x2.setContent(chartService.createMMRChart(player.currentMMR2x2(), "Current 2x2"));
                 mmrBest2x2.setContent(chartService.createMMRChart(player.bestMMR2x2(), "Best 2x2"));
+                mmrCurrent3x3.setContent(chartService.createMMRChart(player.currentMMR3x3(), "Current 3x3"));
+                mmrBest3x3.setContent(chartService.createMMRChart(player.bestMMR3x3(), "Best 3x3"));
             }
         } catch (GetDataException ex) {
             Messagebox.show(ex.getMessage(), "Error", 0,  Messagebox.ERROR);

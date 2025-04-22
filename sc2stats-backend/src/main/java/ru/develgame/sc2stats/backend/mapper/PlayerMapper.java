@@ -17,7 +17,8 @@ public class PlayerMapper {
                 .bestMMR(dbBean.getBestMMR())
                 .currentMMR2x2(dbBean.getCurrentMMR2x2())
                 .bestMMR2x2(dbBean.getBestMMR2x2())
+                .currentMMR3x3(dbBean.getCurrentMMR3x3())
+                .bestMMR3x3(dbBean.getBestMMR3x3())
                 .build();
-
     }
 }

@@ -103,6 +103,11 @@ class UpdatePlayerInfoServiceIT extends BaseServiceIT {
                                               "ladderId": "262241",
                                               "localizedGameMode": "2v2 Diamond",
                                               "rank": 42
+                                          },
+                                          {
+                                              "ladderId": "262253",
+                                              "localizedGameMode": "3v3 Platinum",
+                                              "rank": 17
                                           }
                                      ]
                                 }
@@ -211,6 +216,57 @@ class UpdatePlayerInfoServiceIT extends BaseServiceIT {
                                 """)
                         .withStatusCode(200));
 
+        mockServer.when(request()
+                        .withMethod("GET")
+                        .withPath("/sc2/profile/2/2/playerId/ladder/262253")
+                        .withQueryStringParameter("locale", "en_US")
+                        .withHeader("Authorization", "Bearer AccessTokenValue")
+                )
+                .respond(response()
+                        .withContentType(MediaType.APPLICATION_JSON)
+                        .withBody("""
+                                {
+                                     "ladderTeams": [
+                                         {
+                                             "teamMembers": [
+                                                 {
+                                                     "id": "playerId",
+                                                     "realm": 2,
+                                                     "region": 2,
+                                                     "displayName": "playerName",
+                                                     "clanTag": "clanTag",
+                                                     "favoriteRace": "zerg"
+                                                 }
+                                             ],
+                                             "previousRank": 12,
+                                             "points": 548,
+                                             "wins": 25,
+                                             "losses": 19,
+                                             "mmr": 2962,
+                                             "joinTimestamp": 1732026185
+                                         },
+                                         {
+                                             "teamMembers": [
+                                                 {
+                                                     "id": "playerId2",
+                                                     "realm": 1,
+                                                     "region": 2,
+                                                     "displayName": "playerName2",
+                                                     "favoriteRace": "zerg"
+                                                 }
+                                             ],
+                                             "previousRank": 40,
+                                             "points": 547,
+                                             "wins": 27,
+                                             "losses": 16,
+                                             "mmr": 1446,
+                                             "joinTimestamp": 1732047554
+                                         }
+                                     ]
+                                }
+                                """)
+                        .withStatusCode(200));
+
         updatePlayerInfoService.updatePlayerInfo("AccessTokenValue");
 
         Assertions.assertEquals(1, playerRepository.findAll().size());
@@ -222,5 +278,6 @@ class UpdatePlayerInfoServiceIT extends BaseServiceIT {
         Assertions.assertEquals(1, actual.getBestTeamFinishTimesAchieved());
         Assertions.assertEquals(3092, actual.getCurrentMMR());
         Assertions.assertEquals(3084, actual.getCurrentMMR2x2());
+        Assertions.assertEquals(2962, actual.getCurrentMMR3x3());
     }
 }

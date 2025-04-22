@@ -18,8 +18,7 @@ import ru.develgame.sc2stats.backend.repository.PlayerRepository;
 
 import java.util.List;
 
-import static ru.develgame.sc2stats.backend.utils.BattleNetConst.BATTLE_NET_TYPE_1v1;
-import static ru.develgame.sc2stats.backend.utils.BattleNetConst.BATTLE_NET_TYPE_2v2;
+import static ru.develgame.sc2stats.backend.utils.BattleNetConst.*;
 
 @Service
 @RequiredArgsConstructor
@@ -121,6 +120,14 @@ public class UpdatePlayerInfoService {
                     player.setCurrentMMR2x2(mmr);
                     if (mmr > player.getBestMMR2x2()) {
                         player.setBestMMR2x2(mmr);
+                    }
+                }
+            } else if (playerLadder.localizedGameMode().contains(BATTLE_NET_TYPE_3v3)) {
+                int mmr = processPlayerLadder(request, playerLadder);
+                if (mmr != 0) {
+                    player.setCurrentMMR3x3(mmr);
+                    if (mmr > player.getBestMMR3x3()) {
+                        player.setBestMMR3x3(mmr);
                     }
                 }
             }

@@ -11,5 +11,9 @@
         <image id="mmrCurrent2x2" width="300" height="300"/>
 
         <image id="mmrBest2x2" width="300" height="300"/>
+
+        <image id="mmrCurrent3x3" width="300" height="300"/>
+
+        <image id="mmrBest3x3" width="300" height="300"/>
     </div>
 </zk>
