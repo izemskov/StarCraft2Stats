@@ -18,7 +18,7 @@ import java.text.DecimalFormat;
 
 @Slf4j
 @Service
-public class ChartService {
+public class DialChartService {
     public BufferedImage createMMRChart(int mmr, String title) {
         JFreeChart mmrDialChart = createMMRDialChart(mmr, title);
 

@@ -9,7 +9,7 @@ import org.zkoss.zul.Image;
 import org.zkoss.zul.Messagebox;
 import ru.develgame.sc2stats.frontend.dto.PlayerResponseDto;
 import ru.develgame.sc2stats.frontend.exception.GetDataException;
-import ru.develgame.sc2stats.frontend.service.ChartService;
+import ru.develgame.sc2stats.frontend.service.DialChartService;
 import ru.develgame.sc2stats.frontend.service.PlayerService;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
@@ -27,7 +27,7 @@ public class TeamInfoComposer extends SelectorComposer<Div> {
     private Image mmrBest3x3;
 
     @WireVariable
-    private ChartService chartService;
+    private DialChartService dialChartService;
 
     @WireVariable
     private PlayerService playerService;
@@ -39,10 +39,10 @@ public class TeamInfoComposer extends SelectorComposer<Div> {
         try {
             PlayerResponseDto player = playerService.fetchPlayerInfo();
             if (player != null) {
-                mmrCurrent2x2.setContent(chartService.createMMRChart(player.currentMMR2x2(), "Current 2x2"));
-                mmrBest2x2.setContent(chartService.createMMRChart(player.bestMMR2x2(), "Best 2x2"));
-                mmrCurrent3x3.setContent(chartService.createMMRChart(player.currentMMR3x3(), "Current 3x3"));
-                mmrBest3x3.setContent(chartService.createMMRChart(player.bestMMR3x3(), "Best 3x3"));
+                mmrCurrent2x2.setContent(dialChartService.createMMRChart(player.currentMMR2x2(), "Current 2x2"));
+                mmrBest2x2.setContent(dialChartService.createMMRChart(player.bestMMR2x2(), "Best 2x2"));
+                mmrCurrent3x3.setContent(dialChartService.createMMRChart(player.currentMMR3x3(), "Current 3x3"));
+                mmrBest3x3.setContent(dialChartService.createMMRChart(player.bestMMR3x3(), "Best 3x3"));
             }
         } catch (GetDataException ex) {
             Messagebox.show(ex.getMessage(), "Error", 0,  Messagebox.ERROR);

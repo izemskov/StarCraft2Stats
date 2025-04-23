@@ -80,6 +80,7 @@ class MapServiceIT extends BaseServiceIT {
                 .name("name")
                 .type("1v1")
                 .wins(5)
+                .actual(true)
                 .losses(10)
                 .build();
         map = mapRepository.save(map);
@@ -88,6 +89,7 @@ class MapServiceIT extends BaseServiceIT {
                 .name("name")
                 .type("2v2")
                 .wins(5)
+                .actual(true)
                 .losses(10)
                 .build();
         map1 = mapRepository.save(map1);
@@ -96,6 +98,7 @@ class MapServiceIT extends BaseServiceIT {
                 .name("name1")
                 .type("1v1")
                 .wins(5)
+                .actual(false)
                 .losses(10)
                 .build();
         map2 = mapRepository.save(map2);
@@ -108,9 +111,94 @@ class MapServiceIT extends BaseServiceIT {
                 .build();
         map3 = mapRepository.save(map3);
 
-        List<Map> actual = mapService.fetchAll(MatchType.TYPE_1X1);
+        List<Map> actual = mapService.fetchAll(MatchType.TYPE_1X1, null);
         Assertions.assertEquals(2, actual.size());
         Assertions.assertEquals(map.getId(), actual.get(0).getId());
         Assertions.assertEquals(map2.getId(), actual.get(1).getId());
+    }
+
+    @Test
+    void should_fetchAllByActual() {
+        Map map = Map.builder()
+                .name("name")
+                .type("1v1")
+                .wins(5)
+                .actual(true)
+                .losses(10)
+                .build();
+        map = mapRepository.save(map);
+
+        Map map1 = Map.builder()
+                .name("name")
+                .type("2v2")
+                .wins(5)
+                .actual(true)
+                .losses(10)
+                .build();
+        map1 = mapRepository.save(map1);
+
+        Map map2 = Map.builder()
+                .name("name1")
+                .type("1v1")
+                .wins(5)
+                .actual(false)
+                .losses(10)
+                .build();
+        map2 = mapRepository.save(map2);
+
+        Map map3 = Map.builder()
+                .name("name1")
+                .type("2v2")
+                .wins(5)
+                .losses(10)
+                .build();
+        map3 = mapRepository.save(map3);
+
+        List<Map> actual = mapService.fetchAll(null, true);
+        Assertions.assertEquals(2, actual.size());
+        Assertions.assertEquals(map.getId(), actual.get(0).getId());
+        Assertions.assertEquals(map1.getId(), actual.get(1).getId());
+    }
+
+    @Test
+    void should_fetchAllByActualAndType() {
+        Map map = Map.builder()
+                .name("name")
+                .type("1v1")
+                .wins(5)
+                .actual(true)
+                .losses(10)
+                .build();
+        map = mapRepository.save(map);
+
+        Map map1 = Map.builder()
+                .name("name")
+                .type("2v2")
+                .wins(5)
+                .actual(true)
+                .losses(10)
+                .build();
+        map1 = mapRepository.save(map1);
+
+        Map map2 = Map.builder()
+                .name("name1")
+                .type("1v1")
+                .wins(5)
+                .actual(false)
+                .losses(10)
+                .build();
+        map2 = mapRepository.save(map2);
+
+        Map map3 = Map.builder()
+                .name("name1")
+                .type("2v2")
+                .wins(5)
+                .losses(10)
+                .build();
+        map3 = mapRepository.save(map3);
+
+        List<Map> actual = mapService.fetchAll(MatchType.TYPE_1X1, true);
+        Assertions.assertEquals(1, actual.size());
+        Assertions.assertEquals(map.getId(), actual.get(0).getId());
     }
 }

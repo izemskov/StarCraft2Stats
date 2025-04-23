@@ -26,5 +26,7 @@
                 <listheader sort="auto(winRate)">Win Rate</listheader>
             </listhead>
         </listbox>
+
+        <image id="winLossChart" width="800" height="600"/>
     </div>
 </zk>

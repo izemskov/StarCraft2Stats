@@ -6,6 +6,11 @@
             <combobox id="matchTypeCombobox"
                       itemRenderer="ru.develgame.sc2stats.frontend.render.MatchTypeComboItemRender"
                       readonly="true"/>
+
+            <combobox id="actualCombobox"
+                      style="margin-top: 10px;"
+                      itemRenderer="ru.develgame.sc2stats.frontend.render.ActualComboItemRender"
+                      readonly="true"/>
         </vbox>
 
         <hlayout style="text-align: right; margin-top: 20px;">

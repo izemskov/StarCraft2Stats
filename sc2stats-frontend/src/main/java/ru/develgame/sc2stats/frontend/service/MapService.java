@@ -11,6 +11,7 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import ru.develgame.sc2stats.frontend.dto.MapResponseDto;
+import ru.develgame.sc2stats.frontend.dto.filter.Actual;
 import ru.develgame.sc2stats.frontend.dto.filter.MatchType;
 import ru.develgame.sc2stats.frontend.exception.GetDataException;
 
@@ -24,11 +25,14 @@ public class MapService {
     @Value("${sc.backend.baseUrl}")
     private final String backendBaseUrl;
 
-    public List<MapResponseDto> fetchAll(MatchType type) {
+    public List<MapResponseDto> fetchAll(MatchType type, Actual actual) {
         try {
             UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(backendBaseUrl + "/sc2/map");
             if (type != null) {
                 uriBuilder.queryParam("type", type.name());
+            }
+            if (actual != null && actual != Actual.NONE) {
+                uriBuilder.queryParam("actual", actual == Actual.TRUE ? true : false);
             }
 
             ResponseEntity<MapResponseDto[]> response = restTemplate.getForEntity(uriBuilder.encode().toUriString(),

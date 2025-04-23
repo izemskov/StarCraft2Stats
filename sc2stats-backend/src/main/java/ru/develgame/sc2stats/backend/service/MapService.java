@@ -9,5 +9,5 @@ import java.util.List;
 public interface MapService {
     void updateMap(Match match);
 
-    List<Map> fetchAll(MatchType type);
+    List<Map> fetchAll(MatchType type, Boolean actual);
 }

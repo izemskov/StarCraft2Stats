@@ -9,4 +9,8 @@ public interface MapRepository extends JpaRepository<Map, Long> {
     Map findByNameAndType(String name, String type);
 
     List<Map> findAllByType(String type);
+
+    List<Map> findAllByActual(boolean actual);
+
+    List<Map> findAllByTypeAndActual(String type, boolean actual);
 }

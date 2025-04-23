@@ -13,6 +13,7 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.*;
 import ru.develgame.sc2stats.frontend.dto.MapResponseDto;
+import ru.develgame.sc2stats.frontend.dto.filter.Actual;
 import ru.develgame.sc2stats.frontend.dto.filter.MatchType;
 import ru.develgame.sc2stats.frontend.exception.GetDataException;
 import ru.develgame.sc2stats.frontend.service.MapService;
@@ -21,6 +22,9 @@ import ru.develgame.sc2stats.frontend.service.MapService;
 public class MapComposer extends SelectorComposer<Div> {
     @Wire
     private Listbox mapList;
+
+    @Wire
+    private Image winLossChart;
 
     @WireVariable
     private MapService mapService;
@@ -31,6 +35,7 @@ public class MapComposer extends SelectorComposer<Div> {
     public static final String MAP_EVENT_QUEUE_NAME = "SC2StatsMapsEvents";
     public static final String MAP_EVENT_FILTER = "MapsEventFilter";
     public static final String MAP_FILTER_MATCH_TYPE = "MapFilterMatchType";
+    public static final String MAP_FILTER_ACTUAL = "MapFilterActual";
 
     @Override
     public void doAfterCompose(Div comp) throws Exception {
@@ -51,7 +56,8 @@ public class MapComposer extends SelectorComposer<Div> {
             Session session = Sessions.getCurrent();
 
             mapsDataModel = new ListModelList<>(mapService.fetchAll(
-                    (MatchType) session.getAttribute(MAP_FILTER_MATCH_TYPE)));
+                    (MatchType) session.getAttribute(MAP_FILTER_MATCH_TYPE),
+                    (Actual) session.getAttribute(MAP_FILTER_ACTUAL)));
             mapList.setModel(mapsDataModel);
         } catch (GetDataException ex) {
             Messagebox.show(ex.getMessage(), "Error", 0,  Messagebox.ERROR);

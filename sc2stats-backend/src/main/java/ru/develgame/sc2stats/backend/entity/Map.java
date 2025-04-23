@@ -23,4 +23,6 @@ public class Map {
     private int losses;
     @ColumnDefault("0")
     private int winRate;
+    @Column(nullable = false, columnDefinition = "boolean default false")
+    private boolean actual;
 }

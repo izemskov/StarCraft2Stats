@@ -21,8 +21,9 @@ public class MapController {
     private final MapMapper mapMapper;
 
     @GetMapping
-    public ResponseEntity<List<MapResponseDto>> fetchAll(@RequestParam(required = false) MatchType type) {
-        return ResponseEntity.ok(mapService.fetchAll(type).stream()
+    public ResponseEntity<List<MapResponseDto>> fetchAll(@RequestParam(required = false) MatchType type,
+                                                         @RequestParam(required = false) Boolean actual) {
+        return ResponseEntity.ok(mapService.fetchAll(type, actual).stream()
                 .map(mapMapper::toDto)
                 .toList());
     }

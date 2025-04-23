@@ -36,11 +36,15 @@ public class MapServiceImpl implements MapService {
     }
 
     @Override
-    public List<Map> fetchAll(MatchType type) {
-        if (type == null || type == MatchType.TYPE_NONE) {
-            return mapRepository.findAll();
-        } else {
+    public List<Map> fetchAll(MatchType type, Boolean actual) {
+        if (type != null && type != MatchType.TYPE_NONE && actual != null) {
+            return mapRepository.findAllByTypeAndActual(type.getEntityValue(), actual);
+        } else if (type != null && type != MatchType.TYPE_NONE) {
             return mapRepository.findAllByType(type.getEntityValue());
+        } else if (actual != null) {
+            return mapRepository.findAllByActual(actual);
+        } else {
+            return mapRepository.findAll();
         }
     }
 }

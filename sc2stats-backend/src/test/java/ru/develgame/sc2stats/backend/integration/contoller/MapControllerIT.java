@@ -184,4 +184,109 @@ class MapControllerIT extends BaseRestControllerIT {
         Assertions.assertEquals(map2.getName(), actual[1].name());
         Assertions.assertEquals(map2.getType(), actual[1].type());
     }
+
+    @Test
+    void should_fetchAll_whenMatchesByActual() throws Exception {
+        Map map = Map.builder()
+                .name("name")
+                .type("1v1")
+                .wins(5)
+                .actual(true)
+                .losses(10)
+                .build();
+        map = mapRepository.save(map);
+
+        Map map1 = Map.builder()
+                .name("name")
+                .type("2v2")
+                .wins(5)
+                .actual(true)
+                .losses(10)
+                .build();
+        map1 = mapRepository.save(map1);
+
+        Map map2 = Map.builder()
+                .name("name1")
+                .type("1v1")
+                .wins(5)
+                .actual(false)
+                .losses(10)
+                .build();
+        map2 = mapRepository.save(map2);
+
+        Map map3 = Map.builder()
+                .name("name1")
+                .type("2v2")
+                .wins(5)
+                .losses(10)
+                .build();
+        map3 = mapRepository.save(map3);
+
+        MvcResult mvcResult = mockMvc.perform(get("/sc2/map")
+                        .queryParam("actual", "true")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is(HttpStatus.OK.value()))
+                .andReturn();
+
+        MapResponseDto[] actual = objectMapper.readValue(mvcResult.getResponse().getContentAsString(),
+                MapResponseDto[].class);
+
+        Assertions.assertEquals(2, actual.length);
+        Assertions.assertEquals(map.getName(), actual[0].name());
+        Assertions.assertEquals(map.getType(), actual[0].type());
+        Assertions.assertEquals(map1.getName(), actual[1].name());
+        Assertions.assertEquals(map1.getType(), actual[1].type());
+    }
+
+    @Test
+    void should_fetchAll_whenMatchesByActualAndType() throws Exception {
+        Map map = Map.builder()
+                .name("name")
+                .type("1v1")
+                .wins(5)
+                .actual(true)
+                .losses(10)
+                .build();
+        map = mapRepository.save(map);
+
+        Map map1 = Map.builder()
+                .name("name")
+                .type("2v2")
+                .wins(5)
+                .actual(true)
+                .losses(10)
+                .build();
+        map1 = mapRepository.save(map1);
+
+        Map map2 = Map.builder()
+                .name("name1")
+                .type("1v1")
+                .wins(5)
+                .actual(false)
+                .losses(10)
+                .build();
+        map2 = mapRepository.save(map2);
+
+        Map map3 = Map.builder()
+                .name("name1")
+                .type("2v2")
+                .wins(5)
+                .losses(10)
+                .build();
+        map3 = mapRepository.save(map3);
+
+        MvcResult mvcResult = mockMvc.perform(get("/sc2/map")
+                        .queryParam("type", MatchType.TYPE_1X1.name())
+                        .queryParam("actual", "true")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is(HttpStatus.OK.value()))
+                .andReturn();
+
+        MapResponseDto[] actual = objectMapper.readValue(mvcResult.getResponse().getContentAsString(),
+                MapResponseDto[].class);
+
+        Assertions.assertEquals(1, actual.length);
+        Assertions.assertEquals(map.getName(), actual[0].name());
+        Assertions.assertEquals(map.getType(), actual[0].type());
+    }
 }

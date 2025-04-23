@@ -26,6 +26,7 @@ class MapRepositoryIT extends BaseRepositoryIT {
                 .type("type")
                 .wins(5)
                 .losses(10)
+                .actual(true)
                 .build();
         map = mapRepository.save(map);
 
@@ -34,6 +35,7 @@ class MapRepositoryIT extends BaseRepositoryIT {
                 .type("type1")
                 .wins(5)
                 .losses(10)
+                .actual(false)
                 .build();
         map1 = mapRepository.save(map1);
 
@@ -42,6 +44,7 @@ class MapRepositoryIT extends BaseRepositoryIT {
                 .type("type")
                 .wins(5)
                 .losses(10)
+                .actual(true)
                 .build();
         map2 = mapRepository.save(map2);
 
@@ -50,9 +53,9 @@ class MapRepositoryIT extends BaseRepositoryIT {
                 .type("type1")
                 .wins(5)
                 .losses(10)
+                .actual(false)
                 .build();
         map3 = mapRepository.save(map3);
-
 
         Map actual = mapRepository.findByNameAndType("name", "type");
         Assertions.assertEquals(map.getId(), actual.getId());
@@ -65,6 +68,7 @@ class MapRepositoryIT extends BaseRepositoryIT {
                 .type("type")
                 .wins(5)
                 .losses(10)
+                .actual(true)
                 .build();
         map = mapRepository.save(map);
 
@@ -73,6 +77,7 @@ class MapRepositoryIT extends BaseRepositoryIT {
                 .type("type1")
                 .wins(5)
                 .losses(10)
+                .actual(false)
                 .build();
         map1 = mapRepository.save(map1);
 
@@ -81,6 +86,7 @@ class MapRepositoryIT extends BaseRepositoryIT {
                 .type("type")
                 .wins(5)
                 .losses(10)
+                .actual(true)
                 .build();
         map2 = mapRepository.save(map2);
 
@@ -89,13 +95,100 @@ class MapRepositoryIT extends BaseRepositoryIT {
                 .type("type1")
                 .wins(5)
                 .losses(10)
+                .actual(false)
                 .build();
         map3 = mapRepository.save(map3);
-
 
         List<Map> actual = mapRepository.findAllByType("type");
         Assertions.assertEquals(2, actual.size());
         Assertions.assertEquals(map.getId(), actual.get(0).getId());
         Assertions.assertEquals(map2.getId(), actual.get(1).getId());
+    }
+
+    @Test
+    void should_findAllByActual() {
+        Map map = Map.builder()
+                .name("name")
+                .type("type")
+                .wins(5)
+                .losses(10)
+                .actual(true)
+                .build();
+        map = mapRepository.save(map);
+
+        Map map1 = Map.builder()
+                .name("name")
+                .type("type1")
+                .wins(5)
+                .losses(10)
+                .actual(true)
+                .build();
+        map1 = mapRepository.save(map1);
+
+        Map map2 = Map.builder()
+                .name("name1")
+                .type("type")
+                .wins(5)
+                .losses(10)
+                .actual(false)
+                .build();
+        map2 = mapRepository.save(map2);
+
+        Map map3 = Map.builder()
+                .name("name1")
+                .type("type1")
+                .wins(5)
+                .losses(10)
+                .actual(false)
+                .build();
+        map3 = mapRepository.save(map3);
+
+        List<Map> actual = mapRepository.findAllByActual(true);
+        Assertions.assertEquals(2, actual.size());
+        Assertions.assertEquals(map.getId(), actual.get(0).getId());
+        Assertions.assertEquals(map1.getId(), actual.get(1).getId());
+    }
+
+    @Test
+    void should_findAllByTypeAndActual() {
+        Map map = Map.builder()
+                .name("name")
+                .type("type")
+                .wins(5)
+                .losses(10)
+                .actual(true)
+                .build();
+        map = mapRepository.save(map);
+
+        Map map1 = Map.builder()
+                .name("name")
+                .type("type1")
+                .wins(5)
+                .losses(10)
+                .actual(false)
+                .build();
+        map1 = mapRepository.save(map1);
+
+        Map map2 = Map.builder()
+                .name("name1")
+                .type("type")
+                .wins(5)
+                .losses(10)
+                .actual(false)
+                .build();
+        map2 = mapRepository.save(map2);
+
+        Map map3 = Map.builder()
+                .name("name1")
+                .type("type1")
+                .wins(5)
+                .losses(10)
+                .actual(true)
+                .build();
+        map3 = mapRepository.save(map3);
+
+        List<Map> actual = mapRepository.findAllByTypeAndActual("type", true);
+        Assertions.assertEquals(1, actual.size());
+        Assertions.assertEquals(map.getId(), actual.get(0).getId());
     }
 }
