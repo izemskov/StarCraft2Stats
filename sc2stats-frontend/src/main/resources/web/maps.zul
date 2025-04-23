@@ -27,6 +27,6 @@
             </listhead>
         </listbox>
 
-        <image id="winLossChart" width="800" height="600"/>
+        <image id="winLossChart" width="800" height="600" style="margin-top: 10px;"/>
     </div>
 </zk>

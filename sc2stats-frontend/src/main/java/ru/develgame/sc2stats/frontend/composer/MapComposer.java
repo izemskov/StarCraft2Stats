@@ -17,6 +17,9 @@ import ru.develgame.sc2stats.frontend.dto.filter.Actual;
 import ru.develgame.sc2stats.frontend.dto.filter.MatchType;
 import ru.develgame.sc2stats.frontend.exception.GetDataException;
 import ru.develgame.sc2stats.frontend.service.MapService;
+import ru.develgame.sc2stats.frontend.service.WinLossChartService;
+
+import java.util.List;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class MapComposer extends SelectorComposer<Div> {
@@ -29,8 +32,10 @@ public class MapComposer extends SelectorComposer<Div> {
     @WireVariable
     private MapService mapService;
 
-    private ListModelList<MapResponseDto> mapsDataModel = new ListModelList<>();
+    @WireVariable
+    private WinLossChartService winLossChartService;
 
+    private ListModelList<MapResponseDto> mapsDataModel = new ListModelList<>();
 
     public static final String MAP_EVENT_QUEUE_NAME = "SC2StatsMapsEvents";
     public static final String MAP_EVENT_FILTER = "MapsEventFilter";
@@ -55,10 +60,13 @@ public class MapComposer extends SelectorComposer<Div> {
         try {
             Session session = Sessions.getCurrent();
 
-            mapsDataModel = new ListModelList<>(mapService.fetchAll(
+            List<MapResponseDto> maps = mapService.fetchAll(
                     (MatchType) session.getAttribute(MAP_FILTER_MATCH_TYPE),
-                    (Actual) session.getAttribute(MAP_FILTER_ACTUAL)));
+                    (Actual) session.getAttribute(MAP_FILTER_ACTUAL));
+            mapsDataModel = new ListModelList<>(maps);
             mapList.setModel(mapsDataModel);
+
+            winLossChart.setContent(winLossChartService.createWinLossChart(maps.stream().limit(15).toList()));
         } catch (GetDataException ex) {
             Messagebox.show(ex.getMessage(), "Error", 0,  Messagebox.ERROR);
         }
