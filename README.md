@@ -6,9 +6,10 @@ Main advantages:
 1. Battle Net gives only the last 25 played matches. The application stores the entire history of matches from the moment the information from Battle Net began to be received
 2. The application calculates daily statistics (how many matches per day were won or lost in each of the modes)
 3. Visual display of results and MMR
+4. Win/Loss statistics by map with win rate calculation and visual display
 
-| ![Screenshot](misc/screen3.png) | ![Screenshot](misc/screen4.png) |
-|---------------------------------|---------------------------------|
+| ![Screenshot](misc/screen3.png) | ![Screenshot](misc/screen4.png) | ![Screenshot](misc/screen5.png) |
+|---------------------------------|---------------------------------|---------------------------------|
 
 ## How to run
 
