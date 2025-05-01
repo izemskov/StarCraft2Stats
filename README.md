@@ -10,11 +10,11 @@ Main advantages:
 
 <table>
   <tr>
-    <td valign="top"><img src="misc/screen3.png" width="200"/></td>
-    <td valign="top"><img src="misc/screen4.png" width="200"/></td>
+    <td valign="top"><img src="misc/screen3.png" width="300"/></td>
+    <td valign="top"><img src="misc/screen4.png" width="300"/></td>
     <td valign="top">
-    <img src="misc/screen6.png" width="200"/>
-    <img src="misc/screen5.png" width="200"/>
+    <img src="misc/screen6.png" width="300"/>
+    <img src="misc/screen5.png" width="300"/>
     </td>
   </tr>
 </table>
