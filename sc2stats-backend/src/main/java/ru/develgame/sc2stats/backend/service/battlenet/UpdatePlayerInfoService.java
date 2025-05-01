@@ -13,9 +13,12 @@ import ru.develgame.sc2stats.backend.dto.battlenet.player.ladder.BattleNetApiLad
 import ru.develgame.sc2stats.backend.dto.battlenet.player.ladder.BattleNetApiLadderTeamResponseDto;
 import ru.develgame.sc2stats.backend.dto.battlenet.player.ladder.BattleNetApiPlayerLadderResponseDto;
 import ru.develgame.sc2stats.backend.dto.battlenet.player.ladder.BattleNetApiPlayerLadderShowcaseResponseDto;
+import ru.develgame.sc2stats.backend.entity.MatchMakingRating;
 import ru.develgame.sc2stats.backend.entity.Player;
+import ru.develgame.sc2stats.backend.repository.MatchMakingRatingRepository;
 import ru.develgame.sc2stats.backend.repository.PlayerRepository;
 
+import java.util.Date;
 import java.util.List;
 
 import static ru.develgame.sc2stats.backend.utils.BattleNetConst.*;
@@ -26,6 +29,7 @@ import static ru.develgame.sc2stats.backend.utils.BattleNetConst.*;
 public class UpdatePlayerInfoService {
     private final RestTemplate restTemplate;
     private final PlayerRepository playerRepository;
+    private final MatchMakingRatingRepository matchMakingRatingRepository;
     @Value("${sc.playerId}")
     private final String playerId;
 
@@ -109,7 +113,10 @@ public class UpdatePlayerInfoService {
             if (playerLadder.localizedGameMode().contains(BATTLE_NET_TYPE_1v1)) {
                 int mmr = processPlayerLadder(request, playerLadder);
                 if (mmr != 0) {
-                    player.setCurrentMMR(mmr);
+                    if (player.getCurrentMMR() != mmr) {
+                        createMMRHistory(BATTLE_NET_TYPE_1v1, mmr);
+                        player.setCurrentMMR(mmr);
+                    }
                     if (mmr > player.getBestMMR()) {
                         player.setBestMMR(mmr);
                     }
@@ -117,7 +124,10 @@ public class UpdatePlayerInfoService {
             } else if (playerLadder.localizedGameMode().contains(BATTLE_NET_TYPE_2v2)) {
                 int mmr = processPlayerLadder(request, playerLadder);
                 if (mmr != 0) {
-                    player.setCurrentMMR2x2(mmr);
+                    if (player.getCurrentMMR2x2() != mmr) {
+                        createMMRHistory(BATTLE_NET_TYPE_2v2, mmr);
+                        player.setCurrentMMR2x2(mmr);
+                    }
                     if (mmr > player.getBestMMR2x2()) {
                         player.setBestMMR2x2(mmr);
                     }
@@ -125,7 +135,10 @@ public class UpdatePlayerInfoService {
             } else if (playerLadder.localizedGameMode().contains(BATTLE_NET_TYPE_3v3)) {
                 int mmr = processPlayerLadder(request, playerLadder);
                 if (mmr != 0) {
-                    player.setCurrentMMR3x3(mmr);
+                    if (player.getCurrentMMR3x3() != mmr) {
+                        createMMRHistory(BATTLE_NET_TYPE_3v3, mmr);
+                        player.setCurrentMMR3x3(mmr);
+                    }
                     if (mmr > player.getBestMMR3x3()) {
                         player.setBestMMR3x3(mmr);
                     }
@@ -155,5 +168,13 @@ public class UpdatePlayerInfoService {
         }
 
         return 0;
+    }
+
+    private void createMMRHistory(String type, int value) {
+        MatchMakingRating mmr = new MatchMakingRating();
+        mmr.setCreatedAt(new Date());
+        mmr.setType(type);
+        mmr.setMmrValue(value);
+        matchMakingRatingRepository.save(mmr);
     }
 }

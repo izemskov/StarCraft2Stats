@@ -14,7 +14,7 @@ public class UpdateScheduler {
     private final UpdateDateService updateDateService;
     private final BattleNetApiAuthService battleNetApiAuthService;
 
-    @Scheduled(fixedRateString = "3600000", initialDelayString = "5000")
+    @Scheduled(fixedRateString = "600000", initialDelayString = "5000")
     public void updateSC2MatchHistory() {
         String accessToken = battleNetApiAuthService.getAccessToken();
 
