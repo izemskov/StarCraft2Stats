@@ -34,7 +34,7 @@ public class WinLossChartService {
 
     private JFreeChart createChart(CategoryDataset dataset) {
         JFreeChart chart = ChartFactory.createStackedBarChart(
-                "Win loss",
+                "Win/Loss",
                 "Maps",
                 "Decisions",
                 dataset,

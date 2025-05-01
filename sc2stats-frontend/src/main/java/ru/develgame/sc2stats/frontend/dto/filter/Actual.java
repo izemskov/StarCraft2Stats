@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum Actual {
-    NONE("Actual"),
+    NONE("Actual (true/false)"),
     TRUE("True"),
     FALSE("False");
 
