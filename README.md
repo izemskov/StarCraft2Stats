@@ -8,8 +8,16 @@ Main advantages:
 3. Visual display of results and MMR
 4. Win/Loss statistics by map with win rate calculation and visual display
 
-| ![Screenshot](misc/screen3.png) | ![Screenshot](misc/screen4.png) | ![Screenshot](misc/screen5.png) |
-|---------------------------------|---------------------------------|---------------------------------|
+<table>
+  <tr>
+    <td valign="top"><img src="misc/screen3.png" width="200"/></td>
+    <td valign="top"><img src="misc/screen4.png" width="200"/></td>
+    <td valign="top">
+    <img src="misc/screen6.png" width="200"/>
+    <img src="misc/screen5.png" width="200"/>
+    </td>
+  </tr>
+</table>
 
 ## How to run
 
