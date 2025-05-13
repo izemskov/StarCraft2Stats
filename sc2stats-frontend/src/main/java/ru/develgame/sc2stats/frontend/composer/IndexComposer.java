@@ -1,8 +1,6 @@
 package ru.develgame.sc2stats.frontend.composer;
 
 import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.Session;
-import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventQueue;
 import org.zkoss.zk.ui.event.EventQueues;
@@ -12,16 +10,11 @@ import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zul.*;
-import ru.develgame.sc2stats.frontend.dto.filter.MatchDecision;
-import ru.develgame.sc2stats.frontend.dto.filter.MatchType;
-import ru.develgame.sc2stats.frontend.exception.GetDataException;
 import ru.develgame.sc2stats.frontend.dto.DailyResponseDto;
-import ru.develgame.sc2stats.frontend.dto.MatchResponseDto;
+import ru.develgame.sc2stats.frontend.exception.GetDataException;
+import ru.develgame.sc2stats.frontend.model.MatchesLazyListModel;
 import ru.develgame.sc2stats.frontend.service.DailyService;
 import ru.develgame.sc2stats.frontend.service.MatchService;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @VariableResolver(org.zkoss.zkplus.spring.DelegatingVariableResolver.class)
 public class IndexComposer extends SelectorComposer<Div> {
@@ -37,7 +30,7 @@ public class IndexComposer extends SelectorComposer<Div> {
     @WireVariable
     private DailyService dailyService;
 
-    private ListModelList<MatchResponseDto> matchesDataModel = new ListModelList<>();
+    private MatchesLazyListModel matchesDataModel;
 
     private ListModelList<DailyResponseDto> dailyDataModel = new ListModelList<>();
 
@@ -72,11 +65,7 @@ public class IndexComposer extends SelectorComposer<Div> {
 
     private void loadMatches() {
         try {
-            Session session = Sessions.getCurrent();
-
-            matchesDataModel = new ListModelList<>(matchService.fetchAll(
-                    (MatchType) session.getAttribute(FILTER_MATCH_TYPE),
-                    (MatchDecision) session.getAttribute(FILTER_MATCH_DECISION)));
+            matchesDataModel = new MatchesLazyListModel(matchService);
             matchesList.setModel(matchesDataModel);
         } catch (GetDataException ex) {
             Messagebox.show(ex.getMessage(), "Error", 0,  Messagebox.ERROR);
