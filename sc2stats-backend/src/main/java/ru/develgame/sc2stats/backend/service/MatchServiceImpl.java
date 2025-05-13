@@ -1,15 +1,13 @@
 package ru.develgame.sc2stats.backend.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
+import ru.develgame.sc2stats.backend.bean.MatchesPage;
 import ru.develgame.sc2stats.backend.dto.filter.MatchDecision;
 import ru.develgame.sc2stats.backend.dto.filter.MatchType;
 import ru.develgame.sc2stats.backend.entity.Match;
 import ru.develgame.sc2stats.backend.repository.MatchRepository;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -17,7 +15,12 @@ public class MatchServiceImpl implements MatchService {
     private final MatchRepository matchRepository;
 
     @Override
-    public List<Match> fetchAllMatchesSortedByDateDesc(MatchType type, MatchDecision decision) {
+    public MatchesPage fetchAllMatchesSortedByDateDesc(MatchType type,
+                                                       MatchDecision decision,
+                                                       int page,
+                                                       int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, Match.Fields.date));
+
         Match match = new Match();
         if (type != null && type != MatchType.TYPE_NONE) {
             match.setType(type.getEntityValue());
@@ -26,6 +29,11 @@ public class MatchServiceImpl implements MatchService {
             match.setDecision(decision.getEntityValue());
         }
         Example<Match> example = Example.of(match);
-        return matchRepository.findAll(example, Sort.by(Sort.Direction.DESC, Match.Fields.date));
+        Page<Match> matches = matchRepository.findAll(example, pageable);
+
+        return MatchesPage.builder()
+                .total(matches.getTotalElements())
+                .matches(matches.getContent())
+                .build();
     }
 }
