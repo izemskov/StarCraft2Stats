@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
+import ru.develgame.sc2stats.backend.bean.MatchesPage;
 import ru.develgame.sc2stats.backend.dto.MatchResponseDto;
+import ru.develgame.sc2stats.backend.dto.MatchesResponseDto;
 import ru.develgame.sc2stats.backend.dto.filter.MatchDecision;
 import ru.develgame.sc2stats.backend.dto.filter.MatchType;
 import ru.develgame.sc2stats.backend.entity.Match;
@@ -48,24 +50,24 @@ class MatchControllerIT extends BaseRestControllerIT {
                 .andExpect(status().is(HttpStatus.OK.value()))
                 .andReturn();
 
-        MatchResponseDto[] actual = objectMapper.readValue(mvcResult.getResponse().getContentAsString(),
-                MatchResponseDto[].class);
+        MatchesResponseDto actual = objectMapper.readValue(mvcResult.getResponse().getContentAsString(),
+                MatchesResponseDto.class);
 
-        Assertions.assertEquals(3, actual.length);
-        Assertions.assertEquals(match3.getMap(), actual[0].map());
-        Assertions.assertEquals(match3.getDate(), actual[0].date());
-        Assertions.assertEquals(match3.getDecision(), actual[0].decision());
-        Assertions.assertEquals(match3.getType(), actual[0].type());
+        Assertions.assertEquals(3, actual.total());
+        Assertions.assertEquals(match3.getMap(), actual.matches().get(0).map());
+        Assertions.assertEquals(match3.getDate(), actual.matches().get(0).date());
+        Assertions.assertEquals(match3.getDecision(), actual.matches().get(0).decision());
+        Assertions.assertEquals(match3.getType(), actual.matches().get(0).type());
 
-        Assertions.assertEquals(match2.getMap(), actual[1].map());
-        Assertions.assertEquals(match2.getDate(), actual[1].date());
-        Assertions.assertEquals(match2.getDecision(), actual[1].decision());
-        Assertions.assertEquals(match2.getType(), actual[1].type());
+        Assertions.assertEquals(match2.getMap(), actual.matches().get(1).map());
+        Assertions.assertEquals(match2.getDate(), actual.matches().get(1).date());
+        Assertions.assertEquals(match2.getDecision(), actual.matches().get(1).decision());
+        Assertions.assertEquals(match2.getType(), actual.matches().get(1).type());
 
-        Assertions.assertEquals(match.getMap(), actual[2].map());
-        Assertions.assertEquals(match.getDate(), actual[2].date());
-        Assertions.assertEquals(match.getDecision(), actual[2].decision());
-        Assertions.assertEquals(match.getType(), actual[2].type());
+        Assertions.assertEquals(match.getMap(), actual.matches().get(2).map());
+        Assertions.assertEquals(match.getDate(), actual.matches().get(2).date());
+        Assertions.assertEquals(match.getDecision(), actual.matches().get(2).decision());
+        Assertions.assertEquals(match.getType(), actual.matches().get(2).type());
     }
 
     @Test
@@ -89,24 +91,24 @@ class MatchControllerIT extends BaseRestControllerIT {
                 .andExpect(status().is(HttpStatus.OK.value()))
                 .andReturn();
 
-        MatchResponseDto[] actual = objectMapper.readValue(mvcResult.getResponse().getContentAsString(),
-                MatchResponseDto[].class);
+        MatchesResponseDto actual = objectMapper.readValue(mvcResult.getResponse().getContentAsString(),
+                MatchesResponseDto.class);
 
-        Assertions.assertEquals(3, actual.length);
-        Assertions.assertEquals(match3.getMap(), actual[0].map());
-        Assertions.assertEquals(match3.getDate(), actual[0].date());
-        Assertions.assertEquals(match3.getDecision(), actual[0].decision());
-        Assertions.assertEquals(match3.getType(), actual[0].type());
+        Assertions.assertEquals(3, actual.total());
+        Assertions.assertEquals(match3.getMap(), actual.matches().get(0).map());
+        Assertions.assertEquals(match3.getDate(), actual.matches().get(0).date());
+        Assertions.assertEquals(match3.getDecision(), actual.matches().get(0).decision());
+        Assertions.assertEquals(match3.getType(), actual.matches().get(0).type());
 
-        Assertions.assertEquals(match2.getMap(), actual[1].map());
-        Assertions.assertEquals(match2.getDate(), actual[1].date());
-        Assertions.assertEquals(match2.getDecision(), actual[1].decision());
-        Assertions.assertEquals(match2.getType(), actual[1].type());
+        Assertions.assertEquals(match2.getMap(), actual.matches().get(1).map());
+        Assertions.assertEquals(match2.getDate(), actual.matches().get(1).date());
+        Assertions.assertEquals(match2.getDecision(), actual.matches().get(1).decision());
+        Assertions.assertEquals(match2.getType(), actual.matches().get(1).type());
 
-        Assertions.assertEquals(match.getMap(), actual[2].map());
-        Assertions.assertEquals(match.getDate(), actual[2].date());
-        Assertions.assertEquals(match.getDecision(), actual[2].decision());
-        Assertions.assertEquals(match.getType(), actual[2].type());
+        Assertions.assertEquals(match.getMap(), actual.matches().get(2).map());
+        Assertions.assertEquals(match.getDate(), actual.matches().get(2).date());
+        Assertions.assertEquals(match.getDecision(), actual.matches().get(2).decision());
+        Assertions.assertEquals(match.getType(), actual.matches().get(2).type());
     }
 
     @Test
@@ -141,19 +143,19 @@ class MatchControllerIT extends BaseRestControllerIT {
                 .andExpect(status().is(HttpStatus.OK.value()))
                 .andReturn();
 
-        MatchResponseDto[] actual = objectMapper.readValue(mvcResult.getResponse().getContentAsString(),
-                MatchResponseDto[].class);
+        MatchesResponseDto actual = objectMapper.readValue(mvcResult.getResponse().getContentAsString(),
+                MatchesResponseDto.class);
 
-        Assertions.assertEquals(2, actual.length);
-        Assertions.assertEquals(match4.getMap(), actual[0].map());
-        Assertions.assertEquals(match4.getDate(), actual[0].date());
-        Assertions.assertEquals(match4.getDecision(), actual[0].decision());
-        Assertions.assertEquals(match4.getType(), actual[0].type());
+        Assertions.assertEquals(2, actual.total());
+        Assertions.assertEquals(match4.getMap(), actual.matches().get(0).map());
+        Assertions.assertEquals(match4.getDate(), actual.matches().get(0).date());
+        Assertions.assertEquals(match4.getDecision(), actual.matches().get(0).decision());
+        Assertions.assertEquals(match4.getType(), actual.matches().get(0).type());
 
-        Assertions.assertEquals(match3.getMap(), actual[1].map());
-        Assertions.assertEquals(match3.getDate(), actual[1].date());
-        Assertions.assertEquals(match3.getDecision(), actual[1].decision());
-        Assertions.assertEquals(match3.getType(), actual[1].type());
+        Assertions.assertEquals(match3.getMap(), actual.matches().get(1).map());
+        Assertions.assertEquals(match3.getDate(), actual.matches().get(1).date());
+        Assertions.assertEquals(match3.getDecision(), actual.matches().get(1).decision());
+        Assertions.assertEquals(match3.getType(), actual.matches().get(1).type());
     }
 
     @Test
@@ -188,19 +190,19 @@ class MatchControllerIT extends BaseRestControllerIT {
                 .andExpect(status().is(HttpStatus.OK.value()))
                 .andReturn();
 
-        MatchResponseDto[] actual = objectMapper.readValue(mvcResult.getResponse().getContentAsString(),
-                MatchResponseDto[].class);
+        MatchesResponseDto actual = objectMapper.readValue(mvcResult.getResponse().getContentAsString(),
+                MatchesResponseDto.class);
 
-        Assertions.assertEquals(2, actual.length);
-        Assertions.assertEquals(match4.getMap(), actual[0].map());
-        Assertions.assertEquals(match4.getDate(), actual[0].date());
-        Assertions.assertEquals(match4.getDecision(), actual[0].decision());
-        Assertions.assertEquals(match4.getType(), actual[0].type());
+        Assertions.assertEquals(2, actual.total());
+        Assertions.assertEquals(match4.getMap(), actual.matches().get(0).map());
+        Assertions.assertEquals(match4.getDate(), actual.matches().get(0).date());
+        Assertions.assertEquals(match4.getDecision(), actual.matches().get(0).decision());
+        Assertions.assertEquals(match4.getType(), actual.matches().get(0).type());
 
-        Assertions.assertEquals(match3.getMap(), actual[1].map());
-        Assertions.assertEquals(match3.getDate(), actual[1].date());
-        Assertions.assertEquals(match3.getDecision(), actual[1].decision());
-        Assertions.assertEquals(match3.getType(), actual[1].type());
+        Assertions.assertEquals(match3.getMap(), actual.matches().get(1).map());
+        Assertions.assertEquals(match3.getDate(), actual.matches().get(1).date());
+        Assertions.assertEquals(match3.getDecision(), actual.matches().get(1).decision());
+        Assertions.assertEquals(match3.getType(), actual.matches().get(1).type());
     }
 
     @Test
@@ -240,13 +242,74 @@ class MatchControllerIT extends BaseRestControllerIT {
                 .andExpect(status().is(HttpStatus.OK.value()))
                 .andReturn();
 
-        MatchResponseDto[] actual = objectMapper.readValue(mvcResult.getResponse().getContentAsString(),
-                MatchResponseDto[].class);
+        MatchesResponseDto actual = objectMapper.readValue(mvcResult.getResponse().getContentAsString(),
+                MatchesResponseDto.class);
 
-        Assertions.assertEquals(1, actual.length);
-        Assertions.assertEquals(match3.getMap(), actual[0].map());
-        Assertions.assertEquals(match3.getDate(), actual[0].date());
-        Assertions.assertEquals(match3.getDecision(), actual[0].decision());
-        Assertions.assertEquals(match3.getType(), actual[0].type());
+        Assertions.assertEquals(1, actual.total());
+        Assertions.assertEquals(match3.getMap(), actual.matches().get(0).map());
+        Assertions.assertEquals(match3.getDate(), actual.matches().get(0).date());
+        Assertions.assertEquals(match3.getDecision(), actual.matches().get(0).decision());
+        Assertions.assertEquals(match3.getType(), actual.matches().get(0).type());
+    }
+
+    @Test
+    void should_fetchAll_whenPage() throws Exception {
+        Match match = new Match();
+        match.setDate(1000000L);
+        match.setType("2v2");
+        match.setDecision("Loss");
+        match = matchRepository.save(match);
+
+        Match match2 = new Match();
+        match2.setDate(2000000L);
+        match2.setType("1v1");
+        match2.setDecision("Loss");
+        match2 = matchRepository.save(match2);
+
+        Match match3 = new Match();
+        match3.setDate(3000000L);
+        match3.setType("1v1");
+        match3.setDecision("Win");
+        match3 = matchRepository.save(match3);
+
+        Match match4 = new Match();
+        match4.setDate(4000000L);
+        match4.setType("2v2");
+        match4.setDecision("Win");
+        match4 = matchRepository.save(match4);
+
+        Match match5 = new Match();
+        match5.setDate(5000000L);
+        match5 = matchRepository.save(match5);
+
+        MvcResult mvcResult = mockMvc.perform(get("/sc2/match")
+                        .queryParam("size", "3")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is(HttpStatus.OK.value()))
+                .andReturn();
+
+        MatchesResponseDto actual = objectMapper.readValue(mvcResult.getResponse().getContentAsString(),
+                MatchesResponseDto.class);
+
+        Assertions.assertEquals(5, actual.total());
+        Assertions.assertEquals(3, actual.matches().size());
+        Assertions.assertEquals(match5.getDate(), actual.matches().get(0).date());
+        Assertions.assertEquals(match4.getDate(), actual.matches().get(1).date());
+        Assertions.assertEquals(match3.getDate(), actual.matches().get(2).date());
+
+        mvcResult = mockMvc.perform(get("/sc2/match")
+                        .queryParam("page", "1")
+                        .queryParam("size", "3")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is(HttpStatus.OK.value()))
+                .andReturn();
+
+        actual = objectMapper.readValue(mvcResult.getResponse().getContentAsString(),
+                MatchesResponseDto.class);
+
+        Assertions.assertEquals(5, actual.total());
+        Assertions.assertEquals(2, actual.matches().size());
+        Assertions.assertEquals(match2.getDate(), actual.matches().get(0).date());
+        Assertions.assertEquals(match.getDate(), actual.matches().get(1).date());
     }
 }

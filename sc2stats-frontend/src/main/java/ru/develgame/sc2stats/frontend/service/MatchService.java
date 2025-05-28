@@ -10,12 +10,10 @@ import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+import ru.develgame.sc2stats.frontend.dto.MatchesResponseDto;
 import ru.develgame.sc2stats.frontend.dto.filter.MatchDecision;
 import ru.develgame.sc2stats.frontend.dto.filter.MatchType;
 import ru.develgame.sc2stats.frontend.exception.GetDataException;
-import ru.develgame.sc2stats.frontend.dto.MatchResponseDto;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +23,7 @@ public class MatchService {
     @Value("${sc.backend.baseUrl}")
     private final String backendBaseUrl;
 
-    public List<MatchResponseDto> fetchAll(MatchType type, MatchDecision decision) {
+    public MatchesResponseDto fetchAll(MatchType type, MatchDecision decision, int page, int size) {
         try {
             UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(backendBaseUrl + "/sc2/match");
             if (type != null) {
@@ -34,9 +32,11 @@ public class MatchService {
             if (decision != null) {
                 uriBuilder.queryParam("decision", decision.name());
             }
+            uriBuilder.queryParam("page", page);
+            uriBuilder.queryParam("size", size);
 
-            ResponseEntity<MatchResponseDto[]> response = restTemplate.getForEntity(uriBuilder.encode().toUriString(),
-                    MatchResponseDto[].class);
+            ResponseEntity<MatchesResponseDto> response = restTemplate.getForEntity(uriBuilder.encode().toUriString(),
+                    MatchesResponseDto.class);
             if (response.getStatusCode() != HttpStatus.OK) {
                 throw new GetDataException("Cannot get match history. Error: %d".formatted(response.getStatusCode().value()));
             }
@@ -45,7 +45,7 @@ public class MatchService {
                 throw new GetDataException("Cannot get match history. Empty response");
             }
 
-            return List.of(response.getBody());
+            return response.getBody();
         } catch (HttpClientErrorException | HttpServerErrorException | ResourceAccessException ex) {
             throw new GetDataException(ex.getMessage());
         }
