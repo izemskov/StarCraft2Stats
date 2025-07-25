@@ -30,3 +30,4 @@ replay_pid*
 /mvnw
 /mvnw.cmd
 /battlenet-oauth/target/
+/sc2stats_db.mv.db
