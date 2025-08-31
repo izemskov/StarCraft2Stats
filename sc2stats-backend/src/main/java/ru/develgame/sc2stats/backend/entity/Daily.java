@@ -19,4 +19,6 @@ public class Daily {
     private int losses;
     private String date;
     private long timestamp;
+    @Column(nullable = false, columnDefinition = "boolean default false")
+    private boolean send;
 }

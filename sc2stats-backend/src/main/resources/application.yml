@@ -29,3 +29,6 @@ springdoc:
     enabled: false
   api-docs:
     enabled: false
+
+discord:
+  enabled: true

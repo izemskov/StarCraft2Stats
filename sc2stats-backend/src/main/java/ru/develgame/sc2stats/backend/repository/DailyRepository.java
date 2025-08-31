@@ -11,4 +11,6 @@ public interface DailyRepository extends JpaRepository<Daily, Long> {
     Daily findByDateAndType(String date, String type);
 
     List<Daily> findAllByOrderByTimestampDesc();
+
+    List<Daily> findAllBySend(boolean send);
 }
