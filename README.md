@@ -7,6 +7,7 @@ Main advantages:
 2. The application calculates daily statistics (how many matches per day were won or lost in each of the modes)
 3. Visual display of results and MMR
 4. Win/Loss statistics by map with win rate calculation and visual display
+5. Possibility to send daily statistics to discord channel
 
 <table>
   <tr>
@@ -77,7 +78,7 @@ Enjoy it!
 
 #### 4. Send statistics via discord
 
-To send statistics to the discord server, create a Discord Webhook and specify the following environment variables
+To send statistics to the discord channel, create a Discord Webhook and specify the following environment variables
 ```
 DISCORD_ENABLED=true
 DISCORD_WEBHOOK=

@@ -30,7 +30,7 @@ public class DiscordScheduler {
 
         for (Daily daily : dailies) {
             sendMessage("""
-                    #####################################
+                    ###################
                     Date: %s
                     Type: %s
                     Result: %s-%s
