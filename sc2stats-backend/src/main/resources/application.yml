@@ -31,4 +31,4 @@ springdoc:
     enabled: false
 
 discord:
-  enabled: true
+  enabled: false

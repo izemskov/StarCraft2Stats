@@ -74,3 +74,13 @@ http://localhost
 ```
 
 Enjoy it!
+
+#### 4. Send statistics via discord
+
+To send statistics to the discord server, create a Discord Webhook and specify the following environment variables
+```
+DISCORD_ENABLED=true
+DISCORD_WEBHOOK=
+```
+
+Daily statistics are sent to the discord channel with the specified webhook once a day at midnight server time
