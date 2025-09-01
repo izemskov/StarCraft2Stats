@@ -12,5 +12,5 @@ public interface DailyRepository extends JpaRepository<Daily, Long> {
 
     List<Daily> findAllByOrderByTimestampDesc();
 
-    List<Daily> findAllBySend(boolean send);
+    List<Daily> findAllBySendOrderByTimestampAsc(boolean send);
 }

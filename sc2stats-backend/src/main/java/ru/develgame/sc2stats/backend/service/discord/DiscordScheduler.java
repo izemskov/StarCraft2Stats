@@ -25,8 +25,8 @@ public class DiscordScheduler {
     private final String webhook;
 
     @Scheduled(cron = "0 0 0 * * *")
-    public void sendDailyStats() throws InterruptedException {
-        List<Daily> dailies = dailyRepository.findAllBySend(false);
+    public void sendDailyStats() {
+        List<Daily> dailies = dailyRepository.findAllBySendOrderByTimestampAsc(false);
 
         for (Daily daily : dailies) {
             sendMessage("""
@@ -37,8 +37,6 @@ public class DiscordScheduler {
                     """. formatted(daily.getDate(), daily.getType(), daily.getWins(), daily.getLosses()));
             daily.setSend(true);
             dailyRepository.save(daily);
-
-            Thread.sleep(1000);
         }
     }
 
