@@ -10,16 +10,21 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import ru.develgame.sc2stats.backend.entity.Daily;
+import ru.develgame.sc2stats.backend.entity.Player;
 import ru.develgame.sc2stats.backend.repository.DailyRepository;
+import ru.develgame.sc2stats.backend.service.PlayerService;
 
 import java.util.List;
 import java.util.Map;
+
+import static ru.develgame.sc2stats.backend.dto.filter.MatchType.*;
 
 @Service
 @RequiredArgsConstructor
 @ConditionalOnProperty(name = "discord.enabled", havingValue = "true")
 public class DiscordScheduler {
     private final DailyRepository dailyRepository;
+    private final PlayerService playerService;
     private final RestTemplate restTemplate;
     @Value("${discord.webhook}")
     private final String webhook;
@@ -29,12 +34,14 @@ public class DiscordScheduler {
         List<Daily> dailies = dailyRepository.findAllBySendOrderByTimestampAsc(false);
 
         for (Daily daily : dailies) {
+            int mmr = getCurrentMMRByType(daily.getType());
             sendMessage("""
                     ###################
                     Date: %s
                     Type: %s
                     Result: %s-%s
-                    """. formatted(daily.getDate(), daily.getType(), daily.getWins(), daily.getLosses()));
+                    MMR: %d
+                    """. formatted(daily.getDate(), daily.getType(), daily.getWins(), daily.getLosses(), mmr));
             daily.setSend(true);
             dailyRepository.save(daily);
         }
@@ -49,5 +56,20 @@ public class DiscordScheduler {
         HttpEntity<Map<String, Object>> request = new HttpEntity<>(payload, headers);
 
         restTemplate.postForObject(webhook, request, String.class);
+    }
+
+    private int getCurrentMMRByType(String type) {
+        Player currentPlayer = playerService.getCurrentPlayer();
+        if (currentPlayer == null) {
+            return 0;
+        }
+        if (TYPE_1X1.getEntityValue().equals(type)) {
+            return currentPlayer.getCurrentMMR();
+        } else if (TYPE_2X2.getEntityValue().equals(type)) {
+            return currentPlayer.getCurrentMMR2x2();
+        } else if (TYPE_3X3.getEntityValue().equals(type)) {
+            return currentPlayer.getCurrentMMR3x3();
+        }
+        return 0;
     }
 }

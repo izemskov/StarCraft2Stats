@@ -43,8 +43,8 @@ export BATTLENET_CLIENTSECRET=
 
 For get SC_PLAYERID you need use battlenet-oauth application from this repository:
 ```
-chmod +x battlenet-oauth-2.1.0.jar
-./battlenet-oauth-2.1.0.jar
+chmod +x battlenet-oauth-2.5.0.jar
+./battlenet-oauth-2.5.0.jar
 ```
 
 In your browser open
@@ -62,10 +62,10 @@ export SC_PLAYERID=
 #### 3. Run backend and frontend
 
 ```
-chmod +x sc2stats-backend-2.0.0.jar
-./sc2stats-backend-2.0.0.jar &
-chmod +x ./sc2stats-frontend-2.0.0.jar 
-./sc2stats-frontend-2.0.0.jar &
+chmod +x sc2stats-backend-2.5.0.jar
+./sc2stats-backend-2.5.0.jar &
+chmod +x ./sc2stats-frontend-2.5.0.jar 
+./sc2stats-frontend-2.5.0.jar &
 ```
 
 In your browser open 
