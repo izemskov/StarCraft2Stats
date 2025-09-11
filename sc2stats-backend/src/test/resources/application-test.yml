@@ -23,4 +23,5 @@ spring:
     show-sql: true
 
 discord:
-  enabled: false
+  enabled: true
+  webhook: http://test
