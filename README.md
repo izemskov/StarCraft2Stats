@@ -37,8 +37,8 @@ You should get BATTLENET_CLIENTID, BATTLENET_CLIENTSECRET via this guide: https:
 
 Set up next environment variables
 ```
-export BATTLENET_CLIENTID=
-export BATTLENET_CLIENTSECRET=
+export BATTLENET_CLIENTID=YOUR_BATTLENET_CLIENTID
+export BATTLENET_CLIENTSECRET=YOUR_BATTLENET_CLIENTSECRET
 ```
 
 For get SC_PLAYERID you need use battlenet-oauth application from this repository:
@@ -56,7 +56,7 @@ Click on battle.net icon and finish authorization. Clicks on buttons "Request Ac
 
 In the table you will see id row. Copy value and set up next environment variables
 ```
-export SC_PLAYERID=
+export SC_PLAYERID=YOUR_SC_PLAYERID
 ```
 
 #### 3. Run backend and frontend
@@ -81,7 +81,7 @@ Enjoy it!
 To send statistics to the discord channel, create a Discord Webhook and specify the following environment variables
 ```
 DISCORD_ENABLED=true
-DISCORD_WEBHOOK=
+DISCORD_WEBHOOK=YOUR_DISCORD_WEBHOOK_URL
 ```
 
 Daily statistics are sent to the discord channel with the specified webhook once a day at midnight server time
