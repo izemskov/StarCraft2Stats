@@ -10,7 +10,7 @@
         <version>2.5.0</version>
     </parent>
 
-    <groupId>ru.develgame</groupId>
+    <groupId>ru.develgame.sc2stats</groupId>
     <artifactId>battlenet-oauth</artifactId>
     <packaging>jar</packaging>
 
